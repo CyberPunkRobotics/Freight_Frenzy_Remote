@@ -61,6 +61,8 @@ public class MaxAngularVeloTuner extends LinearOpMode {
 
         drive.setDrivePower(new Pose2d());
 
+        telemetry.addData("Heading: ", drive.getPoseEstimate());
+        telemetry.addData("Heading2: ", drive.getRawExternalHeading());
         telemetry.addData("Max Angular Velocity (rad)", maxAngVelocity);
         telemetry.addData("Max Angular Velocity (deg)", Math.toDegrees(maxAngVelocity));
         telemetry.update();
