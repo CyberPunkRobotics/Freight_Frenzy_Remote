@@ -13,28 +13,36 @@ public class TestRR2 extends LinearOpMode {
 
     void leftCase() {
 
-        Pose2d currentPose = drive.getPoseEstimate();
-        Trajectory traj1 = drive.trajectoryBuilder(currentPose)
-                .splineTo(new Vector2d(17 ,20),Math.PI)
-                .build();
+            drive.updatePoseEstimate();
+            Pose2d currentPose;drive.updatePoseEstimate();
+            currentPose = drive.getPoseEstimate();
+            Trajectory traj1 = drive.trajectoryBuilder(currentPose,false)
+                    .splineTo(new Vector2d(18.162388753361064, -27.96293036149466), 0.14888906083069742)
+                    .build();
 
-        drive.followTrajectory(traj1);
+            drive.followTrajectory(traj1);
+            drive.updatePoseEstimate();
+            currentPose = drive.getPoseEstimate();
+            Trajectory traj2 = drive.trajectoryBuilder(currentPose,false)
+                    .splineTo(new Vector2d(-1.109289057955717, -68.91857577347113), 4.703333377848388)
+                    .build();
 
-        drive.updatePoseEstimate();
-        currentPose = drive.getPoseEstimate();
-        Trajectory traj2 = drive.trajectoryBuilder(currentPose)
-                .back(5)
-                .build();
-        drive.followTrajectory(traj2);
+            drive.followTrajectory(traj2);
+            drive.updatePoseEstimate();
+            currentPose = drive.getPoseEstimate();
+            Trajectory traj3 = drive.trajectoryBuilder(currentPose,false)
+                    .splineTo(new Vector2d(27.588412346860654, -82.00947073330613), 0.0277776715811342)
+                    .build();
 
-        drive.updatePoseEstimate();
-        currentPose = drive.getPoseEstimate();
+            drive.followTrajectory(traj3);
+            drive.updatePoseEstimate();
+            currentPose = drive.getPoseEstimate();
+            Trajectory traj4 = drive.trajectoryBuilder(currentPose,false)
+                    .splineTo(new Vector2d(43.72590844145853, -107.25763105805525), 0.17000007233582437)
+                    .build();
 
-        Trajectory traj5 = drive.trajectoryBuilder(currentPose)
-                .splineTo(new Vector2d(13, -30),0)
-                .splineTo (new Vector2d(22, -30), 0)
-                .build();
-        drive.followTrajectory(traj5);
+            drive.followTrajectory(traj4);
+
 
 
 
