@@ -1,18 +1,15 @@
 package org.firstinspires.ftc.teamcode.drive;
 
-import android.content.Context;
-
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.drive.properties.SampleMecanumDrive;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
 
 @TeleOp(name = "TestGenFiles")
 public class TestGenFiles extends LinearOpMode {
