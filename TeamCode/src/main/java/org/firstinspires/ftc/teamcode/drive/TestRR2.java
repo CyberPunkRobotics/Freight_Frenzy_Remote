@@ -12,38 +12,7 @@ public class TestRR2 extends LinearOpMode {
     SampleMecanumDrive drive;
 
     void leftCase() {
-
-            drive.updatePoseEstimate();
-            Pose2d currentPose;drive.updatePoseEstimate();
-            currentPose = drive.getPoseEstimate();
-            Trajectory traj1 = drive.trajectoryBuilder(currentPose,false)
-                    .splineTo(new Vector2d(18.162388753361064, -27.96293036149466), 0.14888906083069742)
-                    .build();
-
-            drive.followTrajectory(traj1);
-            drive.updatePoseEstimate();
-            currentPose = drive.getPoseEstimate();
-            Trajectory traj2 = drive.trajectoryBuilder(currentPose,false)
-                    .splineTo(new Vector2d(-1.109289057955717, -68.91857577347113), 4.703333377848388)
-                    .build();
-
-            drive.followTrajectory(traj2);
-            drive.updatePoseEstimate();
-            currentPose = drive.getPoseEstimate();
-            Trajectory traj3 = drive.trajectoryBuilder(currentPose,false)
-                    .splineTo(new Vector2d(27.588412346860654, -82.00947073330613), 0.0277776715811342)
-                    .build();
-
-            drive.followTrajectory(traj3);
-            drive.updatePoseEstimate();
-            currentPose = drive.getPoseEstimate();
-            Trajectory traj4 = drive.trajectoryBuilder(currentPose,false)
-                    .splineTo(new Vector2d(43.72590844145853, -107.25763105805525), 0.17000007233582437)
-                    .build();
-
-            drive.followTrajectory(traj4);
-
-
+//
 
 
     }

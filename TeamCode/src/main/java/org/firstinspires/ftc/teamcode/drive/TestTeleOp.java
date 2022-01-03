@@ -25,7 +25,7 @@ public class TestTeleOp extends LinearOpMode {
 
             drive.setMotorPowers(sF, sS, dS, dF);
 
-            telemetry.addData("Heading: ", drive.getRawExternalHeading());
+            telemetry.addData("Heading: ", Math.toDegrees(drive.getRawExternalHeading()));
             telemetry.update();
         }
     }
