@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.drive.properties;
 
+import android.graphics.Color;
+
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.config.Config;
@@ -9,6 +11,7 @@ import com.acmerobotics.roadrunner.drive.MecanumDrive;
 import com.acmerobotics.roadrunner.followers.HolonomicPIDVAFollower;
 import com.acmerobotics.roadrunner.followers.TrajectoryFollower;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.acmerobotics.roadrunner.trajectory.constraints.AngularVelocityConstraint;
@@ -18,16 +21,26 @@ import com.acmerobotics.roadrunner.trajectory.constraints.ProfileAccelerationCon
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAccelerationConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.lynx.LynxI2cColorRangeSensor;
 import com.qualcomm.hardware.lynx.LynxModule;
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
+import com.qualcomm.hardware.rev.RevColorSensorV3;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
+import com.qualcomm.robotcore.hardware.configuration.MotorControllerConfiguration;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -39,6 +52,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceRunne
 import org.firstinspires.ftc.teamcode.util.AxesSigns;
 import org.firstinspires.ftc.teamcode.util.BNO055IMUUtil;
 import org.firstinspires.ftc.teamcode.util.LynxModuleUtil;
+import org.opencv.core.TickMeter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,6 +70,8 @@ import static org.firstinspires.ftc.teamcode.drive.properties.DriveConstants.kA;
 import static org.firstinspires.ftc.teamcode.drive.properties.DriveConstants.kStatic;
 import static org.firstinspires.ftc.teamcode.drive.properties.DriveConstants.kV;
 
+
+
 /*
  * Simple mecanum drive hardware implementation for REV hardware.
  */
@@ -66,8 +82,9 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     public static double LATERAL_MULTIPLIER = 1.1281;
 
-    Orientation lastAngles = new Orientation();
-    double globalAngle;
+    public Orientation lastAngles = new Orientation();
+    public double globalAngle;
+    public double globalAngle2;
     private LinearOpMode opMode;
 
     public static double VX_WEIGHT = 1;
@@ -84,12 +101,32 @@ public class SampleMecanumDrive extends MecanumDrive {
     public DcMotorEx leftFront, leftRear, rightRear, rightFront;
     private List<DcMotorEx> motors;
 
-    private BNO055IMU imu;
+    public BNO055IMU imu;
     private VoltageSensor batteryVoltageSensor;
+    ElapsedTime runtime = new ElapsedTime();
+
+    //Servo si Brat
+    public Servo cleste;
+    public Servo PivotBrat;
+    public DcMotorEx rata;
+    public DcMotorEx ridicareBrat;
+
+    //senzori distanta
+    public DistanceSensor distantaDreapta;
+    public DistanceSensor distantaStanga;
+    public DistanceSensor distantacolor; //distanta senzor culoare
+
+    //senzori culoare
+    public RevColorSensorV3 culoareSpate = null;
+    public RevColorSensorV3  culoareFata = null;
 
 
     public SampleMecanumDrive(HardwareMap hardwareMap) {
+
+
+
         super(kV, kA, kStatic, TRACK_WIDTH, TRACK_WIDTH, LATERAL_MULTIPLIER);
+
 
         follower = new HolonomicPIDVAFollower(TRANSLATIONAL_PID, TRANSLATIONAL_PID, HEADING_PID,
                 new Pose2d(0.5, 0.5, Math.toRadians(5.0)), 0.5);
@@ -112,12 +149,28 @@ public class SampleMecanumDrive extends MecanumDrive {
         // upward (normal to the floor) using a command like the following:
          BNO055IMUUtil.remapAxes(imu, AxesOrder.XYZ, AxesSigns.NPN);
 
+         //Servo plus Brat
+        cleste=hardwareMap.servo.get("Cleste");
+        PivotBrat=hardwareMap.servo.get("PivotBrat");
+        ridicareBrat=hardwareMap.get(DcMotorEx.class, "ridicareBrat");
+        rata=hardwareMap.get(DcMotorEx.class, "rata");
+
+        //motore
         leftFront = hardwareMap.get(DcMotorEx.class, "stangaFata");
         leftRear = hardwareMap.get(DcMotorEx.class, "stangaSpate");
         rightRear = hardwareMap.get(DcMotorEx.class, "dreaptaSpate");
         rightFront = hardwareMap.get(DcMotorEx.class, "dreaptaFata");
 
         motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
+
+        //senzori distanta
+        distantaDreapta = hardwareMap.get(DistanceSensor.class, "distantaDreapta");
+        distantaStanga = hardwareMap.get(DistanceSensor.class, "distantaStanga");
+        distantacolor=hardwareMap.get(DistanceSensor.class,"culoareSpate"); //senzor distanta de la senzor de culoare
+
+        //senzori culoare
+        culoareSpate=hardwareMap.get(RevColorSensorV3.class, "culoareSpate");
+        culoareFata=hardwareMap.get(RevColorSensorV3.class,"culoareFata");
 
 
         for (DcMotorEx motor : motors) {
@@ -146,7 +199,45 @@ public class SampleMecanumDrive extends MecanumDrive {
         trajectorySequenceRunner = new TrajectorySequenceRunner(follower, HEADING_PID);
     }
 
+    //mergi la shipping din warehouse
+    public void catreshippinghub(){
+//        updatePoseEstimate();
+//        Pose2d currentPose;
+//        updatePoseEstimate();
+//        currentPose = getPoseEstimate();
+//
+//        Trajectory traj1 = trajectoryBuilder(currentPose,true)
+//                .splineTo(new Vector2d(12.552626137997455,-62.36955574223152),0)
+//                .build();
+//        followTrajectory(traj1);
+//
+//        updatePoseEstimate();
+//
+//        currentPose = getPoseEstimate();
+//        Trajectory traj2 = trajectoryBuilder(currentPose,true)
+//                .splineTo(new Vector2d(0,0),Math.toRadians(90))
+//                .build();
+//        followTrajectory(traj2);
 
+        stopDriving();
+    }
+    //mergi la warehouse de la shipping hub
+    public void catrewarehouse(){
+
+    }
+
+    //nivele brat
+    public void nivel1(){
+        ridicareBrat.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        ridicareBrat.setTargetPosition(380);
+        ridicareBrat.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        while(ridicareBrat.isBusy() ){
+            ridicareBrat.setPower(1);
+        }
+    }
+
+// De pe RobotMap
 
     public int convertire(double cm){
         int ticks=751;
@@ -160,6 +251,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         globalAngle = 0;
     }
 
+
     public double getAngle() {
         Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         double deltaAngle = angles.firstAngle - lastAngles.firstAngle;
@@ -172,6 +264,14 @@ public class SampleMecanumDrive extends MecanumDrive {
         return globalAngle;
     }
 
+    public void stopDriving() {
+        leftFront.setPower(0);
+        leftRear.setPower(0);
+        rightFront.setPower(0);
+        rightRear.setPower(0);
+    }
+
+//
     public double SQRT(double x) {
         if (x < 0) return -Math.sqrt(Math.abs(x));
         return Math.sqrt(x);
@@ -314,6 +414,8 @@ public class SampleMecanumDrive extends MecanumDrive {
         return wheelVelocities;
     }
 
+
+
     @Override
     public void setMotorPowers(double v, double v1, double v2, double v3) {
         leftFront.setPower(v);
@@ -324,7 +426,13 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     @Override
     public double getRawExternalHeading() {
-        return imu.getAngularOrientation().firstAngle;
+        globalAngle2=imu.getAngularOrientation().firstAngle;
+        return globalAngle2;
+    }
+
+    public void resetAngle2()
+    {
+        globalAngle2=0;
     }
 
     @Override
