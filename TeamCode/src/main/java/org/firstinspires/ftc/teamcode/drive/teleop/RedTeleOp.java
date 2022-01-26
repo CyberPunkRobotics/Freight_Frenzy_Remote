@@ -228,13 +228,9 @@ public class RedTeleOp extends LinearOpMode {
                 robot.rata.setPower(0);
 
             //rotatie brat
-            if(gamepad2.a) {
-                double p = 0.75;
-                while(p>=0.5) {
-                    robot.PivotBrat.setPosition(p);
-                    sleep(100);
-                    p-=0.02;
-                }
+            while(gamepad2.a) {
+                if(robot.PivotBrat.getPosition()<=0.75)
+                    robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()+0.02);
             }
             if(gamepad2.x) {
                 double p = 0.5;
