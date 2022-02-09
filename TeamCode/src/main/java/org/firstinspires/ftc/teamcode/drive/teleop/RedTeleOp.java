@@ -46,10 +46,7 @@ public class RedTeleOp extends LinearOpMode {
         robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //robot in pozitie de start
-        double xstart,ystart;
-        xstart = -41.862855949849056;
-        ystart = -63.11163142092735;
-        robot.setPoseEstimate(new Pose2d(xstart,ystart));
+        robot.setPoseEstimate(new Pose2d(5.204114251977755,-63.62056043033013));
 
         //contor tickuri ridicare/coborare brat
         int ticks;
@@ -97,17 +94,17 @@ public class RedTeleOp extends LinearOpMode {
 
             robot.setMotorPowers(lF, lR, rR, rF);
 
-//            //cand esti in warehouse te misti mai incet
-//            if (!pozitie) {
-//                power = lowPower;
-////                lR = -power * robot.SQRT(-strafe - forward - rotate);
-////                rF = power * robot.SQRT(strafe + forward - rotate);
-////                lF = -power * robot.SQRT(strafe - forward - rotate);
-////                rR = power * robot.SQRT(-strafe + forward - rotate);
-//            }
-//            else {
-//                power = highPower;
-//            }
+            //cand esti in warehouse te misti mai incet
+            if (!pozitie) {
+                power = lowPower;
+//                lR = -power * robot.SQRT(-strafe - forward - rotate);
+//                rF = power * robot.SQRT(strafe + forward - rotate);
+//                lF = -power * robot.SQRT(strafe - forward - rotate);
+//                rR = power * robot.SQRT(-strafe + forward - rotate);
+            }
+            else {
+                power = highPower;
+            }
 
 
 
@@ -200,7 +197,7 @@ public class RedTeleOp extends LinearOpMode {
             bJ = gamepad2.left_trigger;
 
             //ridicare/coborare brat
-            if(bS > 0)
+            if(bS > 0 && robot.ridicareBrat.getCurrentPosition() <= 905)
                 robot.ridicareBrat.setPower(bS);
             else if(bJ > 0)
                 robot.ridicareBrat.setPower(-bJ);
@@ -238,18 +235,6 @@ public class RedTeleOp extends LinearOpMode {
                 robot.cap.setPosition(0); //brat jos
             if(gamepad2.circle)
                 robot.cap.setPosition(0.6);
-
-            if(gamepad2.dpad_down){
-                cfbrat = "stanga";
-                    if(brat.seconds() == 0.5)
-                        robot.PivotBrat.setPosition(0.02);
-                    brat.reset();
-                    if(robot.PivotBrat.getPosition() >= 0.75)
-                        cfbrat = "oprit";
-                brat.reset();
-            }
-
-
 
             /*if(gamepad2.dpad_right)
             if(gamepad2.x) {

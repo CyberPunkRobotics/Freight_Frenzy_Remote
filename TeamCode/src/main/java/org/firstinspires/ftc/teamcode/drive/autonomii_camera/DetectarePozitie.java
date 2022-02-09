@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.drive.autonomii_camera;
 import com.acmerobotics.dashboard.FtcDashboard;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.drive.properties.SampleMecanumDrive;
@@ -13,6 +15,8 @@ import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
+
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
 
 public class DetectarePozitie extends OpenCvPipeline {
@@ -69,11 +73,14 @@ telemetry=t;
         left.release();
         right.release();
 
+
+
+
         telemetry.addData("Left raw value", (int) Core.sumElems(left).val[0]);
         telemetry.addData("Right raw value", (int) Core.sumElems(right).val[0]);
         telemetry.addData("Left percentage", Math.round(leftValue * 100) + "%");
         telemetry.addData("Right percentage", Math.round(rightValue * 100) + "%");
-
+        //telemetry.addData("dI:" , dI);
         boolean rataStanga = leftValue > PERCENT_COLOR_THRESHOLD;
         boolean rataDreapta = rightValue > PERCENT_COLOR_THRESHOLD;
 
