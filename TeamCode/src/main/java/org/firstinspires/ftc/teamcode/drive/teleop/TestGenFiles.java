@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.drive.teleop;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -11,6 +12,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+@Disabled
 @TeleOp(name = "TestGenFiles")
 public class TestGenFiles extends LinearOpMode {
 
@@ -29,8 +31,10 @@ public class TestGenFiles extends LinearOpMode {
         noOfTrajectories++;
         myWriter.write("drive.updatePoseEstimate();\n" +
                 "        currentPose = drive.getPoseEstimate();\n" +
-                "       Trajectory traj" + noOfTrajectories + " = drive.trajectoryBuilder(currentPose," + (reverse ? "true" : "false") +  ")\n" +
-                "                .splineTo(new Vector2d(" + pose.getX() +  ", " + pose.getY() + "), " + pose.getHeading() +  ")\n" +
+                "       Trajectory traj" + noOfTrajectories + " = drive.trajectoryBuilder(currentPose," +
+                (reverse ? "true" : "false") +  ")\n" +
+                "                .splineTo(new Vector2d(" + pose.getX() +  ", " + pose.getY() + "), " +
+                pose.getHeading() +  ")\n" +
                 "                .build();\n" +
                 "\n" +
                 "        drive.followTrajectory(traj" + noOfTrajectories + ");\n");

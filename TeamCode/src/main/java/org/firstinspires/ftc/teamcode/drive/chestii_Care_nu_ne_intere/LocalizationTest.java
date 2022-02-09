@@ -25,13 +25,13 @@ public class LocalizationTest extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        String pozitie = "shipping_hub";
+//        String pozitie = "shipping_hub";
         ElapsedTime time = new ElapsedTime();
 
         drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        drive.setPoseEstimate(new Pose2d(-41.862855949849056,-63.11163142092735));
-        drive.setExternalHeading(Math.toRadians(0));
+//        drive.setPoseEstimate(new Pose2d(-41.862855949849056,-63.11163142092735));
+//        drive.setExternalHeading(Math.toRadians(0));
 
         //localizer.poseEstimate
 
@@ -45,18 +45,18 @@ public class LocalizationTest extends LinearOpMode {
                             -gamepad1.right_stick_x
                     ));
 
-            if (drive.culoareSpate.red()>=80 && drive.culoareSpate.green()>=150 && drive.culoareSpate.blue() >= 150 && drive.culoareSpate.alpha()>=90){
-                //robot.setPoseEstimate(new Pose2d());
-                if(pozitie == "shipping_hub" && time.time() > 1){
-                    pozitie = "warehouse";
-                    time.reset();
-                }
-                else if(pozitie == "warehouse" && time.time() > 1) {
-                    pozitie = "shipping_hub";
-                    time.reset();
-                }
-                drive.setPoseEstimate(new Pose2d(28.594453496583984,-62.96759694447507));
-            }
+//            if (drive.culoareSpate.red()>=80 && drive.culoareSpate.green()>=150 && drive.culoareSpate.blue() >= 150 && drive.culoareSpate.alpha()>=90){
+//                //robot.setPoseEstimate(new Pose2d());
+//                if(pozitie == "shipping_hub" && time.time() > 1){
+//                    pozitie = "warehouse";
+//                    time.reset();
+//                }
+//                else if(pozitie == "warehouse" && time.time() > 1) {
+//                    pozitie = "shipping_hub";
+//                    time.reset();
+//                }
+//                drive.setPoseEstimate(new Pose2d(28.594453496583984,-62.96759694447507));
+//            }
 
             drive.update();
 

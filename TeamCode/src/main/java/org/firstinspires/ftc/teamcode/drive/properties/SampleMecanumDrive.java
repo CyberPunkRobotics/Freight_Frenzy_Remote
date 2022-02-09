@@ -25,6 +25,7 @@ import com.qualcomm.hardware.lynx.LynxI2cColorRangeSensor;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -45,6 +46,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
@@ -54,6 +56,7 @@ import org.firstinspires.ftc.teamcode.util.BNO055IMUUtil;
 import org.firstinspires.ftc.teamcode.util.LynxModuleUtil;
 import org.opencv.core.TickMeter;
 
+import java.security.ProtectionDomain;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -106,19 +109,21 @@ public class SampleMecanumDrive extends MecanumDrive {
     ElapsedTime runtime = new ElapsedTime();
 
     //Servo si Brat
-    public Servo cleste;
+    public CRServo intake;
     public Servo PivotBrat;
     public DcMotorEx rata;
     public DcMotorEx ridicareBrat;
+    public Servo cap;
 
     //senzori distanta
     public DistanceSensor distantaDreapta;
     public DistanceSensor distantaStanga;
-    public DistanceSensor distantacolor; //distanta senzor culoare
+    public DistanceSensor distantaIntake; //distanta senzor culoare
 
     //senzori culoare
     public RevColorSensorV3 culoareSpate = null;
-    public RevColorSensorV3  culoareFata = null;
+    public RevColorSensorV3  culoareIntake = null;
+
 
 
     public SampleMecanumDrive(HardwareMap hardwareMap) {
@@ -150,10 +155,11 @@ public class SampleMecanumDrive extends MecanumDrive {
          BNO055IMUUtil.remapAxes(imu, AxesOrder.XYZ, AxesSigns.NPN);
 
          //Servo plus Brat
-        cleste=hardwareMap.servo.get("Cleste");
+        intake=hardwareMap.crservo.get("intake");
         PivotBrat=hardwareMap.servo.get("PivotBrat");
         ridicareBrat=hardwareMap.get(DcMotorEx.class, "ridicareBrat");
         rata=hardwareMap.get(DcMotorEx.class, "rata");
+        cap=hardwareMap.servo.get("cap");
 
         //motore
         leftFront = hardwareMap.get(DcMotorEx.class, "stangaFata");
@@ -166,11 +172,11 @@ public class SampleMecanumDrive extends MecanumDrive {
         //senzori distanta
         distantaDreapta = hardwareMap.get(DistanceSensor.class, "distantaDreapta");
         distantaStanga = hardwareMap.get(DistanceSensor.class, "distantaStanga");
-        distantacolor=hardwareMap.get(DistanceSensor.class,"culoareSpate"); //senzor distanta de la senzor de culoare
+        distantaIntake=hardwareMap.get(DistanceSensor.class,"culoareIntake"); //senzor distanta de la senzor de culoare
 
         //senzori culoare
         culoareSpate=hardwareMap.get(RevColorSensorV3.class, "culoareSpate");
-        culoareFata=hardwareMap.get(RevColorSensorV3.class,"culoareFata");
+        culoareIntake=hardwareMap.get(RevColorSensorV3.class,"culoareIntake");
 
 
         for (DcMotorEx motor : motors) {
@@ -227,15 +233,15 @@ public class SampleMecanumDrive extends MecanumDrive {
     }
 
     //nivele brat
-    public void nivel1(){
-        ridicareBrat.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    public void RidicareBrat(int ticks, double power){
         ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        ridicareBrat.setTargetPosition(380);
+        ridicareBrat.setTargetPosition(ticks);
         ridicareBrat.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        while(ridicareBrat.isBusy() ){
-            ridicareBrat.setPower(1);
+        if(ridicareBrat.isBusy() ) {
+            ridicareBrat.setPower(power);
         }
     }
+
 
 // De pe RobotMap
 

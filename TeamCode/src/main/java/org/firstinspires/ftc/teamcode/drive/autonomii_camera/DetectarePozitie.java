@@ -4,6 +4,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.drive.properties.SampleMecanumDrive;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -12,6 +13,7 @@ import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
+
 
 public class DetectarePozitie extends OpenCvPipeline {
 
@@ -45,15 +47,21 @@ telemetry=t;
     public Mat processFrame(Mat input) {
 
 
+//170 230
 
         Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2HSV);
-        Scalar lowHSV = new Scalar(23, 170, 20);
-        Scalar highHSV = new Scalar(32, 250, 255);
+        //Scalar lowHSV = new Scalar(168, 158, 154);
+        //Scalar highHSV = new Scalar(179, 236, 255);
+
+        Scalar lowHSV = new Scalar(173, 171, 21);
+        Scalar highHSV = new Scalar(179, 255, 255);
 
         Core.inRange(mat, lowHSV, highHSV, mat);
 
         Mat left = mat.submat(LEFT_ROI);
         Mat right = mat.submat(RIGHT_ROI);
+
+
 
         double leftValue = Core.sumElems(left).val[0] / LEFT_ROI.area() / 255;
         double rightValue = Core.sumElems(right).val[0] / RIGHT_ROI.area() / 255;
