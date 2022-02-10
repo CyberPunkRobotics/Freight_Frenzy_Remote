@@ -127,10 +127,10 @@ public class RedTeleOp extends LinearOpMode {
             }*/
 
             //actionare intake
-            if(gamepad1.right_bumper && dI > 1.9)
-                robot.intake.setPower(0.9);
+            if(gamepad1.right_bumper && dI > 1.2)
+                robot.intake.setPower(0.99);
             else if(gamepad1.left_bumper)
-                robot.intake.setPower(-0.9);
+                robot.intake.setPower(-0.99);
             else robot.intake.setPower(0);
 
 //            //intake automat
