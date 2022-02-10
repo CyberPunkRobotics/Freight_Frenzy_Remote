@@ -248,8 +248,6 @@ public class AutonomieFinala extends LinearOpMode {
 
         robot.followTrajectorySequence(punePeNivel);
 
-        robot.updatePoseEstimate();
-        currentPose = robot.getPoseEstimate();
 
         while(robot.distantaIntake.getDistance(DistanceUnit.CM) > 3.9){
             robot.updatePoseEstimate();
