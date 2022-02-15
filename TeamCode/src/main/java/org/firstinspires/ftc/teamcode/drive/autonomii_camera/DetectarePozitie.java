@@ -80,7 +80,7 @@ telemetry=t;
         telemetry.addData("Right raw value", (int) Core.sumElems(right).val[0]);
         telemetry.addData("Left percentage", Math.round(leftValue * 100) + "%");
         telemetry.addData("Right percentage", Math.round(rightValue * 100) + "%");
-        //telemetry.addData("dI:" , dI);
+
         boolean rataStanga = leftValue > PERCENT_COLOR_THRESHOLD;
         boolean rataDreapta = rightValue > PERCENT_COLOR_THRESHOLD;
 
