@@ -20,6 +20,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.R;
+import org.firstinspires.ftc.teamcode.drive.autonomii_camera.AutonomieFinala;
 import org.firstinspires.ftc.teamcode.drive.properties.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.drive.properties.StandardTrackingWheelLocalizer;
 
@@ -50,6 +51,8 @@ public class RedTeleOp extends LinearOpMode {
         robot.ridicareBrat.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        robot.cap.setPosition(0);
+
         //robot in pozitie de start
         robot.setPoseEstimate(new Pose2d(5.204114251977755,-63.62056043033013));
 
@@ -71,12 +74,14 @@ public class RedTeleOp extends LinearOpMode {
         robot.PivotBrat.setPosition(0.5);
         waitForStart();
 
+        robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         while (opModeIsActive()) {
 
             //contorizare tick-uri
             ticks = robot.ridicareBrat.getCurrentPosition();
 
-            runtime.reset();
+//            runtime.reset();
 
             /** GAMEPAD 1 */
 
@@ -196,44 +201,50 @@ public class RedTeleOp extends LinearOpMode {
             //actionare brat
             double bS,bJ,bS2, bJ2;
 
-            bS = gamepad2.right_trigger;
-            bJ = gamepad2.left_trigger;
-            bS2 = gamepad1.right_trigger;
-            bJ2 = gamepad1.left_trigger;
+            double putere_brat = 1;
+            bS = putere_brat* gamepad2.right_trigger;
+            bJ = putere_brat* gamepad2.left_trigger;
+            bS2 = 0.3 * gamepad1.right_trigger;
+            bJ2 = 0.3 * gamepad1.left_trigger;
 
             if(bS > 0)
                 robot.ridicareBrat.setPower(bS);
             else if(bJ > 0)
                 robot.ridicareBrat.setPower(-bJ);
-            else if(gamepad1.right_trigger == 0 && gamepad1.left_trigger == 0  && !ridicare_brat) robot.ridicareBrat.setPower(0);
+            else if(bS2 > 0)
+                robot.ridicareBrat.setPower(bS2);
+            else if(bJ2 > 0)
+                robot.ridicareBrat.setPower(-bJ2);
+            else if(gamepad2.right_trigger == 0 && gamepad2.left_trigger == 0 && gamepad1.right_trigger==0 && gamepad1.left_trigger == 0 &&
+                    !ridicare_brat && !capping_brat_take) robot.ridicareBrat.setPower(0);
 
             //ridicare brat autonoma
             //nivel 3
-            if (gamepad2.dpad_up){ // Arm UP
+            if (gamepad2.dpad_up){
                 ridicare_brat = true;
                 robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 robot.ridicareBrat.setPower(1);
                 robot.ridicareBrat.setTargetPosition(700);
             }
-            if(ridicare_brat && (robot.ridicareBrat.getCurrentPosition() >= 700 || robot.ridicareBrat.getCurrentPosition() <=-10)){
+            if(ridicare_brat && (robot.ridicareBrat.getCurrentPosition() >= 700 || gamepad2.right_trigger> 0 || gamepad2.left_trigger > 0)){
                 robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 robot.ridicareBrat.setPower(0);
                 ridicare_brat=false;
             }
-
-            //nivel capping-take
+//
+//            //nivel capping-take
 //            if(gamepad2.triangle){
 //                capping_brat_take = true;
 //                robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//                robot.ridicareBrat.setPower(1);
-//                robot.ridicareBrat.setTargetPosition();
+//                robot.ridicareBrat.setPower(0.5);
+//                robot.ridicareBrat.setTargetPosition(205);
 //            }
-//            if(capping_brat_take && (robot.ridicareBrat.getCurrentPosition() >=  || robot.ridicareBrat.getCurrentPosition() <=-10)){
+//            if(capping_brat_take && (robot.ridicareBrat.getCurrentPosition() >=205  || robot.ridicareBrat.getCurrentPosition() <=-10)){
 //                robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 //                robot.ridicareBrat.setPower(0);
 //                capping_brat_take=false;
 //            }
-//
+
 //            //nivel capping-ridicare
 //            if(gamepad2.right_stick_button){
 //                capping_brat_ridicare = true;
@@ -241,7 +252,7 @@ public class RedTeleOp extends LinearOpMode {
 //                robot.ridicareBrat.setPower(0.5);
 //                robot.ridicareBrat.setTargetPosition(900);
 //            }
-//            if(capping_brat_ridicare && (robot.ridicareBrat.getCurrentPosition() >=  || robot.ridicareBrat.getCurrentPosition() <=-10)){
+//            if(capping_brat_ridicare && (robot.ridicareBrat.getCurrentPosition() >=900  || robot.ridicareBrat.getCurrentPosition() <=-10)){
 //                robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 //                robot.ridicareBrat.setPower(0);
 //                capping_brat_take=false;
@@ -265,12 +276,12 @@ public class RedTeleOp extends LinearOpMode {
 
             //rotatie brat
             if(gamepad2.dpad_left) {
-                if(robot.PivotBrat.getPosition()<=0.8)
-                    robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()+0.015);
+                if(robot.PivotBrat.getPosition()<=0.78)
+                    robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()+0.02);
             }
             if(gamepad2.dpad_right){
                 if(robot.PivotBrat.getPosition()>=0.50)
-                    robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()-0.015);
+                    robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()-0.02);
             }
 
             if(brat.time() == 40)
