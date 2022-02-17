@@ -38,8 +38,9 @@ public class RedTeleOp extends LinearOpMode {
     boolean ridicare_brat = false;
     boolean capping_brat_take = false;
     boolean capping_brat_ridicare = false;
+    boolean o_ajuns = false;
 
-    double power=0, lowPower = 0.3, highPower = 0.6;
+    double power=0, lowPower = 0.6, highPower = 0.6;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -54,7 +55,7 @@ public class RedTeleOp extends LinearOpMode {
         robot.cap.setPosition(0);
 
         //robot in pozitie de start
-        robot.setPoseEstimate(new Pose2d(5.204114251977755,-63.62056043033013));
+        robot.setPoseEstimate(new Pose2d(34.434152253040736,-63.030941829754916));
 
         //contor tickuri ridicare/coborare brat
         int ticks;
@@ -78,12 +79,19 @@ public class RedTeleOp extends LinearOpMode {
 
         while (opModeIsActive()) {
 
+            robot.updatePoseEstimate();
+
             //contorizare tick-uri
             ticks = robot.ridicareBrat.getCurrentPosition();
 
 //            runtime.reset();
 
             /** GAMEPAD 1 */
+
+            //Senzori distanta de la senzori culoare
+            double dD = robot.distantaDreapta.getDistance(DistanceUnit.CM);
+            double dS = robot.distantaStanga.getDistance(DistanceUnit.CM);
+            double dI = robot.distantaIntake.getDistance(DistanceUnit.CM);
 
 
             //Miscarea sasiului
@@ -102,37 +110,31 @@ public class RedTeleOp extends LinearOpMode {
             double lF = -power * robot.SQRT(strafe - forward - rotate);
             double rR = power * robot.SQRT(-strafe + forward - rotate);
 
-            robot.setMotorPowers(lF, lR, rR, rF);
+
 
             //cand esti in warehouse te misti mai incet
             if (!pozitie) {
                 power = lowPower;
-//                lR = -power * robot.SQRT(-strafe - forward - rotate);
-//                rF = power * robot.SQRT(strafe + forward - rotate);
-//                lF = -power * robot.SQRT(strafe - forward - rotate);
-//                rR = power * robot.SQRT(-strafe + forward - rotate);
+                lR = -power * robot.SQRT(-strafe - forward - rotate);
+                rF = power * robot.SQRT(strafe + forward - rotate);
+                lF = -power * robot.SQRT(strafe - forward - rotate);
+                rR = power * robot.SQRT(-strafe + forward - rotate);
             }
             else {
                 power = highPower;
             }
 
-            //Senzori distanta de la senzori culoare
-            double dD = robot.distantaDreapta.getDistance(DistanceUnit.CM);
-            double dS = robot.distantaStanga.getDistance(DistanceUnit.CM);
-            double dI = robot.distantaIntake.getDistance(DistanceUnit.CM);
+            robot.setMotorPowers(lF, lR, rR, rF);
+
+            pozitie = !(robot.getPoseEstimate().getX() > 28) || !(robot.getPoseEstimate().getY() > -70);
+
 
             //senzori culoare
             double rStanga = robot.culoareSpate.red();
             double gStanga = robot.culoareSpate.green();
             double bStanga = robot.culoareSpate.blue();
 
-            //Deschidere/Inchidere Cleste
-            /*if (gamepad1.right_bumper) {
-                robot.intake.setPosition(0.32);
-            }
-            if (gamepad1.left_bumper) {
-                robot.intake.setPosition(0.23);
-            }*/
+
 
             //actionare intake
             if(gamepad1.right_bumper && dI > 1.2)
@@ -141,42 +143,59 @@ public class RedTeleOp extends LinearOpMode {
                 robot.intake.setPower(-0.99);
             else robot.intake.setPower(0);
 
-//            //intake automat
-//            if(dI <= 4.3 && aruncare.time() > 1 && dI > 1.9)
-//                robot.intake.setPower(0.9);
-//            if(dI > 4.3)
-//                aruncare.reset();
 
             //Resetare unghi
             if (gamepad1.square) {
                 robot.resetAngle();
             }
 
+            //Resetare pozitii warehouse
+            if (robot.culoareSpate.getNormalizedColors().toColor() > 1730000000)
+                robot.setPoseEstimate(new Pose2d(28.594453496583984, -62.96759694447507));
+
+            /* CHESTII DE COD PE CARE POATE LE FOLOSIM*/
+ /*
             //pozitionare robot paralel cu peretele (aliniare teren)
-          /*  if(gamepad1.dpad_right){
+            if(gamepad1.dpad_right){
               // robot.updatePoseEstimate();
                     robot.turn(Math.toRadians(-(robot.getAngle())));
-            }*/
+            }
+
+
+            //Deschidere/Inchidere Cleste
+            if (gamepad1.right_bumper) {
+                robot.intake.setPosition(0.32);
+            }
+            if (gamepad1.left_bumper) {
+                robot.intake.setPosition(0.23);
+            }
+
 
             //resetare unghi la peste 360
             if (robot.getAngle() > 360 || robot.getAngle() < -360)
                 robot.resetAngle();
+
+            //pozitionare robot paralel cu peretele (aliniare teren)
+            if(gamepad1.dpad_right){
+              // robot.updatePoseEstimate();
+                    robot.turn(Math.toRadians(-(robot.getAngle())));
+            }
 
             /// alb v mica 119 184 210
             ///rosu v mica 195 155 196
             /// alb v mare 100-150 , 150, 160-200
             /// rosu v mare 100,160, 180
             //detectarea culorii albe
-////            daca detecteaza culoarea alba => ai trecut peste linia dintre warehouse si shipping hub
-////            if (robot.culoareSpate.red() >= 100 && robot.culoareSpate.green() >= 150 && robot.culoareSpate.blue() >= 150 && robot.culoareSpate.alpha() >= 90) {
+//            daca detecteaza culoarea alba => ai trecut peste linia dintre warehouse si shipping hub
+//            if (robot.culoareSpate.red() >= 100 && robot.culoareSpate.green() >= 150 && robot.culoareSpate.blue() >= 150 && robot.culoareSpate.alpha() >= 90) {
 //            if (robot.culoareSpate.getNormalizedColors().toColor() > 1850000000) {
 //                if (!pozitie && time.time() > 1.512) {
 //                    pozitie = true;
 //                    time.reset();
-////                } else if (pozitie && time.time() > 1.512) {
-////                    pozitie = false;
-////                    time.reset();
-////                }
+//                } else if (pozitie && time.time() > 1.512) {
+//                  pozitie = false;
+//                  time.reset();
+//                }
 //                //pentru a nu pierde din pozitia robotului, ne folosim de coordonatele
 //                //liniei albe si resetam pozitia robotului pentru a stii unde se afla
 //                robot.setPoseEstimate(new Pose2d(28.594453496583984, -62.96759694447507));
@@ -194,7 +213,7 @@ public class RedTeleOp extends LinearOpMode {
 //                robot.setPoseEstimate(new Pose2d(28.594453496583984, -62.96759694447507));
 //            }
 
-
+*/
 
             /** GAMEPAD 2 */
 
@@ -219,18 +238,32 @@ public class RedTeleOp extends LinearOpMode {
                     !ridicare_brat && !capping_brat_take) robot.ridicareBrat.setPower(0);
 
             //ridicare brat autonoma
-            //nivel 3
+
+                  //nivel 3 cu dpad
             if (gamepad2.dpad_up){
                 ridicare_brat = true;
                 robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 robot.ridicareBrat.setPower(1);
                 robot.ridicareBrat.setTargetPosition(700);
             }
-            if(ridicare_brat && (robot.ridicareBrat.getCurrentPosition() >= 700 || gamepad2.right_trigger> 0 || gamepad2.left_trigger > 0)){
+            if(ridicare_brat && (robot.ridicareBrat.getCurrentPosition() >= 700 || gamepad2.right_trigger> 0 || gamepad2.left_trigger > 0
+                    || gamepad1.right_trigger>0 || gamepad1.left_trigger>0)){
                 robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 robot.ridicareBrat.setPower(0);
                 ridicare_brat=false;
+                o_ajuns = true;
             }
+                  //nivel 3 cu sensor
+            if(dI<=1.2 && !o_ajuns && robot.ridicareBrat.getCurrentPosition() < 700 && gamepad1.left_trigger==0 && gamepad1.right_trigger == 0
+                && gamepad2.left_trigger==0 && gamepad2.right_trigger==0)
+            {ridicare_brat = true;
+                robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.ridicareBrat.setPower(1);
+                robot.ridicareBrat.setTargetPosition(700);
+            }
+            if(dI>2.5)
+                o_ajuns = false;
+
 //
 //            //nivel capping-take
 //            if(gamepad2.triangle){
@@ -258,15 +291,37 @@ public class RedTeleOp extends LinearOpMode {
 //                capping_brat_take=false;
 //            }
 
-            //carusel
+            //carusel //da
             if(gamepad2.right_bumper)
                 robot.rata.setPower(0.6);
 //            else if(gamepad2.left_bumper)
 //                robot.rata.setPower(-0.1);
             else {robot.rata.setPower(0);robot.rata.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);}
 
+
+            //rotatie brat
+            if(gamepad2.dpad_left) {
+                if(robot.PivotBrat.getPosition()<=0.77)
+                    robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()+0.03);
+            }
+            if(gamepad2.dpad_right){
+                if(robot.PivotBrat.getPosition()>=0.50)
+                    robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()-0.03);
+            }
+
+            if(gamepad2.right_stick_x < 0)
+                robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()+0.01);
+            if(gamepad2.right_stick_x > 0)
+                robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()-0.01);
+
+            if(brat.time() == 40)
+            {gamepad1.rumble(100);gamepad2.rumble(100);}
+
+
+            /* CHESTII DE COD PE CARE POATE LE FOLOSIM*/
+/*
             //reducere viteza
-       //     if(gamepad1.right_stick_button ) {
+            //     if(gamepad1.right_stick_button ) {
 //                if (!pozitie)
 //                    pozitie = true;
 //                else if (pozitie)
@@ -274,20 +329,7 @@ public class RedTeleOp extends LinearOpMode {
 //                time.reset();
 //            }
 
-            //rotatie brat
-            if(gamepad2.dpad_left) {
-                if(robot.PivotBrat.getPosition()<=0.78)
-                    robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()+0.02);
-            }
-            if(gamepad2.dpad_right){
-                if(robot.PivotBrat.getPosition()>=0.50)
-                    robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()-0.02);
-            }
-
-            if(brat.time() == 40)
-            {gamepad1.rumble(100);gamepad2.rumble(100);}
-
-            /*if(gamepad2.dpad_right)
+           if(gamepad2.dpad_right)
             if(gamepad2.x) {
                 double p = 0.5;
                 while(p<=0.75) {
@@ -295,14 +337,14 @@ public class RedTeleOp extends LinearOpMode {
                     sleep(100);
                     p+=0.02;
                 }
-            }*/
+            }
 
             ///nivele brat
-            /*
+
             nivel 1 = 380 ticks
             nivel 2 = 860 ticks
             nivel 3 = 1280 ticks
-             */
+
             /*if(gamepad2.dpad_up) {
                 robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 robot.ridicareBrat.setTargetPosition(1280);
@@ -324,28 +366,19 @@ public class RedTeleOp extends LinearOpMode {
                 }
 
                 if(robot.ridicareBrat.getCurrentPosition() == 1280 || robot.ridicareBrat.getCurrentPosition() == 0)
-                    nivel_brat = "-";*/
+                    nivel_brat = "-";
+
+*/
 
 
-
-//          telemetry.addData("UNGHI: ",(robot.getAngle()));
-//          telemetry.update();
-//            dashboardTelemetry.addData("Unghi", (robot.getAngle()));
-//            dashboardTelemetry.addData("dreapta fata", drf);
-//            dashboardTelemetry.addData("dreapta spate", drs);
-//            dashboardTelemetry.addData("stanga fata", stf);
-//            dashboardTelemetry.addData("stanga spate", sts);
             dashboardTelemetry.addData("ticks:", ticks);
-//            telemetry.addData("Color","R %d G %d B %d", robot.culoareFata.red(), robot.culoareFata.blue(), robot.culoareFata.green());
             dashboardTelemetry.addData("Color fata ", robot.culoareIntake.getNormalizedColors().toColor());
             dashboardTelemetry.addData("Color spate ", robot.culoareSpate.getNormalizedColors().toColor());
             dashboardTelemetry.addData("Color","R %d G %d B %d", robot.culoareSpate.red(), robot.culoareSpate.blue(), robot.culoareSpate.green());
-//           dashboardTelemetry.addData("Color", robot.culoareSpate.alpha());
-//            dashboardTelemetry.addData("distatantacolor", dC);
             dashboardTelemetry.addData("x", robot.getPoseEstimate().getX());
             dashboardTelemetry.addData("y", robot.getPoseEstimate().getY());
             dashboardTelemetry.addData("Pozitie robot",pozitie);
-            dashboardTelemetry.addData("disttanta", robot.distantaIntake.getDistance(DistanceUnit.CM));
+            dashboardTelemetry.addData("distanta intake", robot.distantaIntake.getDistance(DistanceUnit.CM));
             dashboardTelemetry.update();
         }
 
