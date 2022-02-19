@@ -40,7 +40,7 @@ public class RedTeleOp extends LinearOpMode {
     boolean capping_brat_ridicare = false;
     boolean o_ajuns = false;
 
-    double power=0, lowPower = 0.6, highPower = 0.6;
+    double power=0.6;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -62,7 +62,7 @@ public class RedTeleOp extends LinearOpMode {
 
         //pt determinare pozitie robot (la inceput e inafara warehouse-ului)
         //warehouse = false , sh = true
-        boolean pozitie = true;
+//        boolean pozitie = true;
 
         String cfbrat = "default";
 
@@ -73,11 +73,16 @@ public class RedTeleOp extends LinearOpMode {
         //pozitiile inititale ale bratului + clestelui +cap
         //robot.intake.setPosition(0.23);
         robot.PivotBrat.setPosition(0.5);
+
         waitForStart();
+
+        brat.reset();
 
         robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+
         while (opModeIsActive()) {
+
 
             robot.updatePoseEstimate();
 
@@ -86,6 +91,10 @@ public class RedTeleOp extends LinearOpMode {
 
 //            runtime.reset();
 
+            if(gamepad2.x) {
+                robot.ridicareBrat.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            }
             /** GAMEPAD 1 */
 
             //Senzori distanta de la senzori culoare
@@ -112,21 +121,26 @@ public class RedTeleOp extends LinearOpMode {
 
 
 
-            //cand esti in warehouse te misti mai incet
-            if (!pozitie) {
-                power = lowPower;
-                lR = -power * robot.SQRT(-strafe - forward - rotate);
-                rF = power * robot.SQRT(strafe + forward - rotate);
-                lF = -power * robot.SQRT(strafe - forward - rotate);
-                rR = power * robot.SQRT(-strafe + forward - rotate);
-            }
-            else {
-                power = highPower;
-            }
+//            //cand esti in warehouse te misti mai incet
+//            if (!pozitie) {
+//                power = lowPower;
+//                lR = -power * robot.SQRT(-strafe - forward - rotate);
+//                rF = power * robot.SQRT(strafe + forward - rotate);
+//                lF = -power * robot.SQRT(strafe - forward - rotate);
+//                rR = power * robot.SQRT(-strafe + forward - rotate);
+//            }
+//            else {
+//                power = highPower;
+//            }
 
             robot.setMotorPowers(lF, lR, rR, rF);
 
-            pozitie = !(robot.getPoseEstimate().getX() > 28) || !(robot.getPoseEstimate().getY() > -70);
+//            pozitie = !(robot.getPoseEstimate().getX() > 28) || !(robot.getPoseEstimate().getY() > -70);
+
+            if(gamepad1.left_stick_x == 0 && gamepad1.left_stick_y==0 && gamepad1.right_stick_x == 0){
+                robot.stopMotors();
+        }
+
 
 
             //senzori culoare
@@ -152,6 +166,12 @@ public class RedTeleOp extends LinearOpMode {
             //Resetare pozitii warehouse
             if (robot.culoareSpate.getNormalizedColors().toColor() > 1730000000)
                 robot.setPoseEstimate(new Pose2d(28.594453496583984, -62.96759694447507));
+
+            //capping
+            if(gamepad1.dpad_up)
+                robot.cap.setPosition(1);
+            else if(gamepad1.dpad_down)
+                robot.cap.setPosition(0);
 
             /* CHESTII DE COD PE CARE POATE LE FOLOSIM*/
  /*
@@ -223,8 +243,8 @@ public class RedTeleOp extends LinearOpMode {
             double putere_brat = 1;
             bS = putere_brat* gamepad2.right_trigger;
             bJ = putere_brat* gamepad2.left_trigger;
-            bS2 = 0.3 * gamepad1.right_trigger;
-            bJ2 = 0.3 * gamepad1.left_trigger;
+            bS2 = 0.3 * gamepad1.left_trigger;
+            bJ2 = 0.3 * gamepad1.right_trigger;
 
             if(bS > 0)
                 robot.ridicareBrat.setPower(bS);
@@ -246,7 +266,7 @@ public class RedTeleOp extends LinearOpMode {
                 robot.ridicareBrat.setPower(1);
                 robot.ridicareBrat.setTargetPosition(700);
             }
-            if(ridicare_brat && (robot.ridicareBrat.getCurrentPosition() >= 700 || gamepad2.right_trigger> 0 || gamepad2.left_trigger > 0
+            if(ridicare_brat && (ticks >= 700 || gamepad2.right_trigger> 0 || gamepad2.left_trigger > 0
                     || gamepad1.right_trigger>0 || gamepad1.left_trigger>0)){
                 robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 robot.ridicareBrat.setPower(0);
@@ -254,7 +274,7 @@ public class RedTeleOp extends LinearOpMode {
                 o_ajuns = true;
             }
                   //nivel 3 cu sensor
-            if(dI<=1.2 && !o_ajuns && robot.ridicareBrat.getCurrentPosition() < 700 && gamepad1.left_trigger==0 && gamepad1.right_trigger == 0
+            if(dI<=1.2 && !o_ajuns && ticks < 700 && gamepad1.left_trigger==0 && gamepad1.right_trigger == 0
                 && gamepad2.left_trigger==0 && gamepad2.right_trigger==0)
             {ridicare_brat = true;
                 robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -314,8 +334,13 @@ public class RedTeleOp extends LinearOpMode {
             if(gamepad2.right_stick_x > 0)
                 robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()-0.01);
 
-            if(brat.time() == 40)
+            if(brat.seconds() == 80)
             {gamepad1.rumble(100);gamepad2.rumble(100);}
+
+            if(gamepad2.left_stick_button)
+                power=1;
+            if(gamepad2.right_stick_button)
+                power=0.6;
 
 
             /* CHESTII DE COD PE CARE POATE LE FOLOSIM*/
@@ -377,8 +402,9 @@ public class RedTeleOp extends LinearOpMode {
             dashboardTelemetry.addData("Color","R %d G %d B %d", robot.culoareSpate.red(), robot.culoareSpate.blue(), robot.culoareSpate.green());
             dashboardTelemetry.addData("x", robot.getPoseEstimate().getX());
             dashboardTelemetry.addData("y", robot.getPoseEstimate().getY());
-            dashboardTelemetry.addData("Pozitie robot",pozitie);
+//            dashboardTelemetry.addData("Pozitie robot",pozitie);
             dashboardTelemetry.addData("distanta intake", robot.distantaIntake.getDistance(DistanceUnit.CM));
+            dashboardTelemetry.addData("Brat mode", robot.ridicareBrat.getMode());
             dashboardTelemetry.update();
         }
 

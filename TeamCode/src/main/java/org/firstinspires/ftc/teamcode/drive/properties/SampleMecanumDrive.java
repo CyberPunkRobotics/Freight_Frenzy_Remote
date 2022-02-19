@@ -126,6 +126,8 @@ public class SampleMecanumDrive extends MecanumDrive {
     public RevColorSensorV3 culoareSpate = null;
     public RevColorSensorV3  culoareIntake = null;
 
+    int lastTick;
+
     public SampleMecanumDrive(HardwareMap hardwareMap) {
 
 
@@ -230,6 +232,13 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     }
 
+    public void getLastTick(int n){
+        lastTick = n;
+    }
+    public int transferTick(){
+        return lastTick;
+    }
+
     //nivele brat
     public void RidicareBrat(int ticks, double power){
         ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -266,6 +275,13 @@ public class SampleMecanumDrive extends MecanumDrive {
         globalAngle +=deltaAngle;
         lastAngles = angles;
         return globalAngle;
+    }
+
+    public void stopMotors(){
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void stopDriving() {
@@ -417,7 +433,6 @@ public class SampleMecanumDrive extends MecanumDrive {
         }
         return wheelVelocities;
     }
-
 
 
     @Override
