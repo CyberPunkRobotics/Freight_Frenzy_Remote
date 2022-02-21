@@ -280,12 +280,17 @@ public class RedTeleOp extends LinearOpMode {
             if(dI>2.5)
                 o_ajuns = false;
 
-            if(robot.touchSensor.isPressed() && k == 0) {
-                    k++;
+
+            //resetare pozitii brat cu touch sensor.
+            if(robot.touchSensor.isPressed() )
+                    //&& !ridicare_brat && gamepad1.right_trigger == 0 && gamepad1.left_trigger == 0
+//                    && gamepad2.left_trigger == 0 && gamepad2.right_trigger == 0 )
+            {
+                   k++;
                     robot.ridicareBrat.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             }
-            else k =0;
+         else k =0;
 
 //
 //            //nivel capping-take
@@ -408,6 +413,7 @@ public class RedTeleOp extends LinearOpMode {
 //            dashboardTelemetry.addData("Pozitie robot",pozitie);
             dashboardTelemetry.addData("distanta intake", robot.distantaIntake.getDistance(DistanceUnit.CM));
             dashboardTelemetry.addData("Brat mode", robot.ridicareBrat.getMode());
+            dashboardTelemetry.addData("Touch Sensor", robot.touchSensor.isPressed());
             dashboardTelemetry.update();
         }
 

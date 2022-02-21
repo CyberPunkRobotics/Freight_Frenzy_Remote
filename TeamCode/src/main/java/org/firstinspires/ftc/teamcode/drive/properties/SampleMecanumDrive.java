@@ -24,7 +24,9 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.lynx.LynxI2cColorRangeSensor;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
+import com.qualcomm.hardware.rev.RevTouchSensor;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -128,7 +130,7 @@ public class SampleMecanumDrive extends MecanumDrive {
     public RevColorSensorV3  culoareIntake = null;
 
     //touch sensor
-    public TouchSensor touchSensor;
+    public RevTouchSensor touchSensor;
 
     int lastTick;
 
@@ -183,7 +185,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         culoareIntake=hardwareMap.get(RevColorSensorV3.class,"culoareIntake");
 
         //touch sensor
-        touchSensor = hardwareMap.get(TouchSensor.class,"touch_sensor");
+        touchSensor = hardwareMap.get(RevTouchSensor.class,"touch_sensor");
 
 
         for (DcMotorEx motor : motors) {
