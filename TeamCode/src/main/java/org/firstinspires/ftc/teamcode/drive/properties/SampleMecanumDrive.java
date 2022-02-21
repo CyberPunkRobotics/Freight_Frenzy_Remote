@@ -37,6 +37,7 @@ import com.qualcomm.robotcore.hardware.MotorControlAlgorithm;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.MotorControllerConfiguration;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
@@ -126,6 +127,9 @@ public class SampleMecanumDrive extends MecanumDrive {
     public RevColorSensorV3 culoareSpate = null;
     public RevColorSensorV3  culoareIntake = null;
 
+    //touch sensor
+    public TouchSensor touchSensor;
+
     int lastTick;
 
     public SampleMecanumDrive(HardwareMap hardwareMap) {
@@ -177,6 +181,9 @@ public class SampleMecanumDrive extends MecanumDrive {
         //senzori culoare
         culoareSpate=hardwareMap.get(RevColorSensorV3.class, "culoareSpate");
         culoareIntake=hardwareMap.get(RevColorSensorV3.class,"culoareIntake");
+
+        //touch sensor
+        touchSensor = hardwareMap.get(TouchSensor.class,"touch_sensor");
 
 
         for (DcMotorEx motor : motors) {

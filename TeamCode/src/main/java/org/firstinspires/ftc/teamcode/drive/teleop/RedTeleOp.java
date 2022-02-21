@@ -80,6 +80,7 @@ public class RedTeleOp extends LinearOpMode {
 
         robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        int k =0;
 
         while (opModeIsActive()) {
 
@@ -90,11 +91,6 @@ public class RedTeleOp extends LinearOpMode {
             ticks = robot.ridicareBrat.getCurrentPosition();
 
 //            runtime.reset();
-
-            if(gamepad2.x) {
-                robot.ridicareBrat.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            }
             /** GAMEPAD 1 */
 
             //Senzori distanta de la senzori culoare
@@ -284,6 +280,13 @@ public class RedTeleOp extends LinearOpMode {
             if(dI>2.5)
                 o_ajuns = false;
 
+            if(robot.touchSensor.isPressed() && k == 0) {
+                    k++;
+                    robot.ridicareBrat.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            }
+            else k =0;
+
 //
 //            //nivel capping-take
 //            if(gamepad2.triangle){
@@ -334,7 +337,7 @@ public class RedTeleOp extends LinearOpMode {
             if(gamepad2.right_stick_x > 0)
                 robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()-0.01);
 
-            if(brat.seconds() == 80)
+            if(brat.time() == 2)
             {gamepad1.rumble(100);gamepad2.rumble(100);}
 
             if(gamepad2.left_stick_button)

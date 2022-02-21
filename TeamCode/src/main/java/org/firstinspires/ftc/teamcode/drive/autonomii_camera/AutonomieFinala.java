@@ -568,7 +568,7 @@ public class AutonomieFinala extends LinearOpMode {
                 .addTemporalMarker(4.4, ()->{ robot.PivotBrat.setPosition(0.52); })
                 .addTemporalMarker(4.5, ()->{ robot.PivotBrat.setPosition(0.5); })
                 .addTemporalMarker(4.4, ()->{robot.RidicareBrat(0,1);})
-                .waitSeconds(0.7)
+                .waitSeconds(1)
 //                .splineToConstantHeading(new Vector2d(38.79158659407203, -62.58922924676717),0,SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
 //                        SampleMecanumDrive.getAccelerationConstraint(20))
                 .lineToLinearHeading(new Pose2d(1.8218146597307612,-44.804924824164594,Math.toRadians(39)))
