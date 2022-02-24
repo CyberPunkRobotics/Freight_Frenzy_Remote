@@ -115,7 +115,7 @@ public class AutonomieFinala extends LinearOpMode {
         currentPose = robot.getPoseEstimate();
         TrajectorySequence PuneCubPeNivel = robot.trajectorySequenceBuilder(currentPose)
                 .splineToLinearHeading(new Pose2d(  -25.68310486038491, -45.50910491865442, Math.toRadians(330)),0)
-                .addTemporalMarker(0, ()->{robot.RidicareBrat(241,1); })
+                .addTemporalMarker(0, ()->{robot.RidicareBrat(229,1); })
                 .addTemporalMarker(0.2, ()->{ robot.PivotBrat.setPosition(0.53); })
                 .addTemporalMarker(0.3, ()->{ robot.PivotBrat.setPosition(0.56); })
                 .addTemporalMarker(0.4, ()->{ robot.PivotBrat.setPosition(0.59); })
@@ -125,7 +125,7 @@ public class AutonomieFinala extends LinearOpMode {
                 .addTemporalMarker(0.8, ()->{ robot.PivotBrat.setPosition(0.71); })
                 .addTemporalMarker(0.9, ()->{ robot.PivotBrat.setPosition(0.74); })
                 .addTemporalMarker(1, ()->{ robot.PivotBrat.setPosition(0.76); })
-                .addTemporalMarker(1.1,()->{robot.PivotBrat.setPosition(0.78);})
+//                .addTemporalMarker(1.1,()->{robot.PivotBrat.setPosition(0.78);})
                 .addTemporalMarker(1.7, ()->{robot.intake.setPower(-0.99);})
                 .waitSeconds(0.8)
                 .addTemporalMarker(2.5, ()->{ robot.intake.setPower(0);robot.PivotBrat.setPosition(0.74); })
@@ -142,7 +142,7 @@ public class AutonomieFinala extends LinearOpMode {
                 .addTemporalMarker(3.6, ()->{ robot.PivotBrat.setPosition(0.53); })
                 .addTemporalMarker(3.7, ()->{ robot.PivotBrat.setPosition(0.5); })
                 .addTemporalMarker(3.2,()->{robot.RidicareBrat(0,1);})
-                .splineToSplineHeading(new Pose2d(31.79158659407203, -62.58922924676717, Math.toRadians(0)),0 , SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .splineToSplineHeading(new Pose2d(32.79158659407203, -62.58922924676717, Math.toRadians(0)),0 , SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(50))
                 .build(); //daca nu merge cu regionala facem battle bots in parcu teilor #Iftime Mihail Kogalniceanu
 
@@ -301,8 +301,6 @@ public class AutonomieFinala extends LinearOpMode {
                 .addTemporalMarker(1.7, ()->{ robot.PivotBrat.setPosition(0.73); })
                 .addTemporalMarker(1.8, ()->{ robot.PivotBrat.setPosition(0.74); })
                 .addTemporalMarker(1.9, ()->{ robot.PivotBrat.setPosition(0.75); })
-                .addTemporalMarker(2,()->{robot.PivotBrat.setPosition(0.77);})
-                .addTemporalMarker(2.1,()->{robot.PivotBrat.setPosition(0.79);})
                 .waitSeconds(0.5)
                 .addTemporalMarker(3.2, ()->{ robot.intake.setPower(-0.99);})
                 .waitSeconds(0.2)
@@ -321,7 +319,8 @@ public class AutonomieFinala extends LinearOpMode {
                 .waitSeconds(0.7)
 //                .splineToConstantHeading(new Vector2d(38.79158659407203, -62.58922924676717),0,SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
 //                        SampleMecanumDrive.getAccelerationConstraint(20))
-                .lineToLinearHeading(new Pose2d(-1.9708310002547287, -48.931214475866946,Math.toRadians(70.6)))
+                .lineToLinearHeading(new Pose2d(-1.9708310002547287, -48.931214475866946,Math.toRadians(70.6)),SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
+                        SampleMecanumDrive.getAccelerationConstraint(40))
                 .build();
 
         robot.followTrajectorySequence(mergeInWh);
@@ -346,9 +345,9 @@ public class AutonomieFinala extends LinearOpMode {
         robot.updatePoseEstimate();
         currentPose = robot.getPoseEstimate();
         TrajectorySequence puneRata = robot.trajectorySequenceBuilder(currentPose)
-                .lineToSplineHeading(new Pose2d(-13.800778017390152, -51.8,0),SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
+                .lineToSplineHeading(new Pose2d(-12.800778017390152, -51.8,0),SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(40))
-                .addTemporalMarker(0,()->{robot.RidicareBrat(720,0.7); robot.intake.setPower(0.99);})
+                .addTemporalMarker(0,()->{robot.RidicareBrat(720,1); robot.intake.setPower(0.99);})
                 .addTemporalMarker(0.7,()->robot.intake.setPower(0))
                 .addTemporalMarker(0.7, ()->{ robot.PivotBrat.setPosition(0.52); })
                 .addTemporalMarker(0.8, ()->{ robot.PivotBrat.setPosition(0.54); })
@@ -364,7 +363,7 @@ public class AutonomieFinala extends LinearOpMode {
                 .addTemporalMarker(1.8, ()->{ robot.PivotBrat.setPosition(0.73); })
                 .addTemporalMarker(1.9, ()->{ robot.PivotBrat.setPosition(0.74); })
                 .addTemporalMarker(2.0, ()->{ robot.PivotBrat.setPosition(0.75); })
-                .strafeLeft(0.8)
+                .strafeLeft(1.8)
                 .addTemporalMarker(2.0,()-> robot.intake.setPower(0))
                 .addTemporalMarker(2.4,()->{robot.intake.setPower(-0.99);})
                 .waitSeconds(1.5)
@@ -417,7 +416,7 @@ public class AutonomieFinala extends LinearOpMode {
         currentPose = robot.getPoseEstimate();
         TrajectorySequence PuneCubPeNivel = robot.trajectorySequenceBuilder(currentPose)
                 .splineToLinearHeading(new Pose2d(  -25.68310486038491, -45.50910491865442, Math.toRadians(330)),0)
-                .addTemporalMarker(0, ()->{robot.RidicareBrat(478,1); })
+                .addTemporalMarker(0, ()->{robot.RidicareBrat(452,0.8); })
                 .addTemporalMarker(0.2, ()->{ robot.PivotBrat.setPosition(0.53); })
                 .addTemporalMarker(0.3, ()->{ robot.PivotBrat.setPosition(0.56); })
                 .addTemporalMarker(0.4, ()->{ robot.PivotBrat.setPosition(0.59); })
@@ -534,7 +533,7 @@ public class AutonomieFinala extends LinearOpMode {
         TrajectorySequence mergeInWh = robot.trajectorySequenceBuilder(currentPose)
                 .lineTo(new Vector2d(28.004453496583984,-63.46759694447507),SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(25))
-                .splineToConstantHeading(new Vector2d(-9.800778017390152, -47.99213093601243),0,SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
+                .splineToConstantHeading(new Vector2d(-10.9, -48.69213093601243),0,SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(40))
                 .addTemporalMarker(0,   ()->{ robot.RidicareBrat(720,0.7);robot.intake.setPower(0);})
                 .addTemporalMarker(0.6, ()->{ robot.PivotBrat.setPosition(0.52); })
@@ -596,9 +595,9 @@ public class AutonomieFinala extends LinearOpMode {
         robot.updatePoseEstimate();
         currentPose = robot.getPoseEstimate();
         TrajectorySequence puneRata = robot.trajectorySequenceBuilder(currentPose)
-                .lineToSplineHeading(new Pose2d(-13.800778017390152, -51.8,0),SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
+                .lineToSplineHeading(new Pose2d(-12.800778017390152, -51.8,0),SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(40))
-                .addTemporalMarker(0,()->{robot.RidicareBrat(745,0.7);robot.intake.setPower(0.99);})
+                .addTemporalMarker(0,()->{robot.RidicareBrat(745,1);robot.intake.setPower(0.99);})
                 .addTemporalMarker(0.7,()->robot.intake.setPower(0))
                 .addTemporalMarker(0.7, ()->{ robot.PivotBrat.setPosition(0.52); })
                 .addTemporalMarker(0.8, ()->{ robot.PivotBrat.setPosition(0.54); })
@@ -614,6 +613,7 @@ public class AutonomieFinala extends LinearOpMode {
                 .addTemporalMarker(1.8, ()->{ robot.PivotBrat.setPosition(0.73); })
                 .addTemporalMarker(1.9, ()->{ robot.PivotBrat.setPosition(0.74); })
                 .addTemporalMarker(2.0, ()->{ robot.PivotBrat.setPosition(0.75); })
+                .strafeLeft(2)
                 .addTemporalMarker(2.0,()-> robot.intake.setPower(0))
                 .addTemporalMarker(2.4,()->{robot.intake.setPower(-0.99);})
                 .waitSeconds(1.2)
@@ -675,7 +675,7 @@ public class AutonomieFinala extends LinearOpMode {
                     .addTemporalMarker(0.8, ()->{ robot.PivotBrat.setPosition(0.71); })
                     .addTemporalMarker(0.9, ()->{ robot.PivotBrat.setPosition(0.74); })
                     .addTemporalMarker(1, ()->{ robot.PivotBrat.setPosition(0.76); })
-                    .addTemporalMarker(1.1,()->{robot.PivotBrat.setPosition(0.78);})
+//                    .addTemporalMarker(1.1,()->{robot.PivotBrat.setPosition(0.78);})
                     .addTemporalMarker(1.7, ()->{robot.intake.setPower(-0.99);})
                     .waitSeconds(0.8)
                     .addTemporalMarker(2.5, ()->{ robot.intake.setPower(0);robot.PivotBrat.setPosition(0.74); })
@@ -847,7 +847,7 @@ public class AutonomieFinala extends LinearOpMode {
                 .back(0.001)
                 .lineToConstantHeading(new Vector2d(-13.800778017390152, -51.8),SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(40))
-                .addTemporalMarker(0,()->{robot.RidicareBrat(720,0.7);robot.intake.setPower(0.99);})
+                .addTemporalMarker(0,()->{robot.RidicareBrat(700,0.7);robot.intake.setPower(0.99);})
                 .addTemporalMarker(0.7,()->robot.intake.setPower(0))
                 .addTemporalMarker(0.7, ()->{ robot.PivotBrat.setPosition(0.52); })
                 .addTemporalMarker(0.8, ()->{ robot.PivotBrat.setPosition(0.54); })

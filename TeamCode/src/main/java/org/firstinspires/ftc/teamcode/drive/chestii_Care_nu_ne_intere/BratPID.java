@@ -40,7 +40,7 @@ public class BratPID extends LinearOpMode {
         /**
          * basic initialization stuff needs to be changed to suit your configuration (motor name, direction, etc.)
          */
-        shooterMotor = hardwareMap.get(DcMotorEx.class, "ridicareBrat");
+        shooterMotor = hardwareMap.get(DcMotorEx.class, "rata");
 
 
 //        shooterMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -55,6 +55,8 @@ public class BratPID extends LinearOpMode {
             while (opModeIsActive()) {
 
                 PID(speed); //running the PID algorithm at defined speed
+                telemetry.addData("Target", speed);
+                telemetry.addData("Viteza", shooterMotor.getVelocity());
 
                 telemetry.update();
             }

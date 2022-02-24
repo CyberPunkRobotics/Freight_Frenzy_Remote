@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-@Disabled
+
 @TeleOp(name = "TestGenFiles")
 public class TestGenFiles extends LinearOpMode {
 
