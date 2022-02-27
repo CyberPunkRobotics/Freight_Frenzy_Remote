@@ -296,10 +296,10 @@ public class RedTeleOp extends LinearOpMode {
             {robot.ridicareBrat.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
             robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);}
 
-            if(robot.touchSensor.isPressed())
-            {robot.ridicareBrat.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-             robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            }
+//            if(robot.touchSensor.isPressed())
+//            {robot.ridicareBrat.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+//             robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//            }
 //
 //            //nivel capping-take
 //            if(gamepad2.triangle){
