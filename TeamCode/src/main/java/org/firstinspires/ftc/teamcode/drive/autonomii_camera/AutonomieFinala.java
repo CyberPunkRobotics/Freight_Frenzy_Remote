@@ -116,7 +116,7 @@ public class AutonomieFinala extends LinearOpMode {
 
         TrajectorySequence PuneCubPeNivel = robot.trajectorySequenceBuilder(currentPose)
                 .splineToLinearHeading(new Pose2d(  -25.68310486038491, -44.00910491865442, Math.toRadians(330)),0)
-                .addTemporalMarker(0, ()->{robot.RidicareBrat(218,1); })
+                .addTemporalMarker(0, ()->{robot.RidicareBrat(213,1); })
                 .addTemporalMarker(0.2, ()->{ robot.PivotBrat.setPosition(0.53); })
                 .addTemporalMarker(0.3, ()->{ robot.PivotBrat.setPosition(0.56); })
                 .addTemporalMarker(0.4, ()->{ robot.PivotBrat.setPosition(0.59); })
@@ -175,7 +175,7 @@ public class AutonomieFinala extends LinearOpMode {
         TrajectorySequence PuneCubSiIaRata = robot.trajectorySequenceBuilder(currentPose)
                 .lineTo(new Vector2d(28.004453496583984,-63.46759694447507),SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(25))
-                .splineToConstantHeading(new Vector2d(-9.800778017390152, -46.59213093601243),0,SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
+                .splineToConstantHeading(new Vector2d(-9.800778017390152, -48.59213093601243),0,SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(40))
                 .addTemporalMarker(0,   ()->{ robot.RidicareBrat(740,0.7);robot.intake.setPower(0);})
                 .addTemporalMarker(0.6, ()->{ robot.PivotBrat.setPosition(0.52); })
@@ -210,7 +210,7 @@ public class AutonomieFinala extends LinearOpMode {
                 .waitSeconds(0.7)
 //                .splineToConstantHeading(new Vector2d(38.79158659407203, -62.58922924676717),0,SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
 //                        SampleMecanumDrive.getAccelerationConstraint(20))
-                .lineToLinearHeading(new Pose2d(-1.9708310002547287, -44.331214475866946,Math.toRadians(53)),SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
+                .lineToLinearHeading(new Pose2d(-1.9708310002547287, -44.331214475866946,Math.toRadians(51)),SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(40)) // se pune pe luat rata
                 .build();
 
@@ -413,7 +413,7 @@ public class AutonomieFinala extends LinearOpMode {
                 .waitSeconds(1)
 //                .splineToConstantHeading(new Vector2d(38.79158659407203, -62.58922924676717),0,SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
 //                        SampleMecanumDrive.getAccelerationConstraint(20))
-                .lineToLinearHeading(new Pose2d(1.8218146597307612,-37.904924824164594,Math.toRadians(13.5)))
+                .lineToLinearHeading(new Pose2d(1.8218146597307612,-37.904924824164594,Math.toRadians(12.5)))
                 .build();
 
         robot.followTrajectorySequence(PuneCubSiIaRata);
@@ -611,7 +611,7 @@ public class AutonomieFinala extends LinearOpMode {
                 .waitSeconds(0.7)
 //                .splineToConstantHeading(new Vector2d(38.79158659407203, -62.58922924676717),0,SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
 //                        SampleMecanumDrive.getAccelerationConstraint(20))
-                .lineTo(new Vector2d(9.455264826189605,-35.8))
+                .lineTo(new Vector2d(7.955264826189605,-35.8))
                 .build();
 
         robot.followTrajectorySequence(PuneCubSiIaRata);
