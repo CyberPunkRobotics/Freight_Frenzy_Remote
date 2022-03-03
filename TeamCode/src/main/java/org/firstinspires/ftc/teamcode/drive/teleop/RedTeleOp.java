@@ -329,7 +329,7 @@ public class RedTeleOp extends LinearOpMode {
 
             //carusel //da
             if(gamepad2.right_bumper)
-                robot.rata.setPower(0.6);
+                robot.rata.setPower(0.8);
 //            else if(gamepad2.left_bumper)
 //                robot.rata.setPower(-0.1);
             else {robot.rata.setPower(0);robot.rata.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);}
@@ -355,7 +355,7 @@ public class RedTeleOp extends LinearOpMode {
             if(gamepad2.left_stick_button)
                 power=1;
             if(gamepad2.right_stick_button)
-                power=0.6;
+                power=0.65;
 
 
             /* CHESTII DE COD PE CARE POATE LE FOLOSIM*/
