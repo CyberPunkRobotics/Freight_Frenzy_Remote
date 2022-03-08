@@ -1,30 +1,17 @@
 package org.firstinspires.ftc.teamcode.drive.teleop;
 
-import android.app.Activity;
-import android.view.View;
-
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.geometry.Vector2d;
-import com.acmerobotics.roadrunner.trajectory.Trajectory;
-import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
-import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.teamcode.R;
-import org.firstinspires.ftc.teamcode.drive.autonomii_camera.AutonomieFinala;
 import org.firstinspires.ftc.teamcode.drive.properties.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.drive.properties.StandardTrackingWheelLocalizer;
-
-import static org.firstinspires.ftc.robotcore.internal.android.dx.dex.code.StdCatchBuilder.build;
 
 
 @TeleOp(name = "Dunhill", group = "MecanumBot")

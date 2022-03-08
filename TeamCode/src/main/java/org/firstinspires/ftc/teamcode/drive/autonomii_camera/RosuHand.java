@@ -25,8 +25,8 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
-@Autonomous(name="Autonomie", group="Auto")
-public class AutonomieFinala extends LinearOpMode {
+@Autonomous(name="RosuHand", group="Auto")
+public class RosuHand extends LinearOpMode {
 
 
     FtcDashboard dashboard;
