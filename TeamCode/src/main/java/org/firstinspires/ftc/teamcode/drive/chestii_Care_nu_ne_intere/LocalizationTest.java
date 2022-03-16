@@ -33,8 +33,8 @@ public class LocalizationTest extends LinearOpMode {
         //5.204114251977755,-63.62056043033013
 
 
-//       drive.setPoseEstimate(new Pose2d(-41.8157286018119,-64.5442651728134));
-//        drive.setExternalHeading(Math.toRadians(0));
+        drive.setPoseEstimate(new Pose2d(5.5674211343158015,-64.5442651728134));
+        drive.setExternalHeading(Math.toRadians(0));
 
 
         //localizer.poseEstimate

@@ -14,8 +14,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.drive.properties.SampleMecanumDrive;
 
 
-@TeleOp(name = "Malboro", group = "MecanumBot")
-public class Malboro extends LinearOpMode {
+@TeleOp(name = "Dunhill_SHARED", group = "MecanumBot")
+public class Dunhill_SHARED extends LinearOpMode {
 
     private SampleMecanumDrive robot = null;
     private final double DELAY = 0.2;
@@ -89,7 +89,7 @@ public class Malboro extends LinearOpMode {
 
             //Miscarea sasiului
 
-             double x = -gamepad1.left_stick_x;
+            double x = -gamepad1.left_stick_x;
             double y = -gamepad1.left_stick_y;
 
             double direction = Math.atan2(x, y) - Math.toRadians(robot.getAngle()) + Math.PI / 2;
@@ -123,7 +123,7 @@ public class Malboro extends LinearOpMode {
 
             if(gamepad1.left_stick_x == 0 && gamepad1.left_stick_y==0 && gamepad1.right_stick_x == 0){
                 robot.stopMotors();
-        }
+            }
 
 
 
@@ -241,27 +241,27 @@ public class Malboro extends LinearOpMode {
 
             //ridicare brat autonoma
 
-                  //nivel 3 cu dpad
+            //nivel 3 cu dpad
             if (gamepad2.dpad_up){
                 ridicare_brat = true;
                 robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 robot.ridicareBrat.setPower(1);
-                robot.ridicareBrat.setTargetPosition(700);
+                robot.ridicareBrat.setTargetPosition(175);
             }
-            if(ridicare_brat && (ticks >= 700 || gamepad2.right_trigger> 0 || gamepad2.left_trigger > 0
+            if(ridicare_brat && (ticks >= 175 || gamepad2.right_trigger> 0 || gamepad2.left_trigger > 0
                     || gamepad1.right_trigger>0 || gamepad1.left_trigger>0)){
                 robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 robot.ridicareBrat.setPower(0);
                 ridicare_brat=false;
                 o_ajuns = true;
             }
-                  //nivel 3 cu sensor
-            if(dI<=1.2 && !o_ajuns && ticks < 700 && gamepad1.left_trigger==0 && gamepad1.right_trigger == 0
-                && gamepad2.left_trigger==0 && gamepad2.right_trigger==0)
+            //nivel 3 cu sensor
+            if(dI<=1.2 && !o_ajuns && ticks < 175 && gamepad1.left_trigger==0 && gamepad1.right_trigger == 0
+                    && gamepad2.left_trigger==0 && gamepad2.right_trigger==0)
             {ridicare_brat = true;
                 robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 robot.ridicareBrat.setPower(1);
-                robot.ridicareBrat.setTargetPosition(700);
+                robot.ridicareBrat.setTargetPosition(175);
             }
             if(dI>2.5)
                 o_ajuns = false;
@@ -281,10 +281,10 @@ public class Malboro extends LinearOpMode {
 //            }
 //         else k =0;
 
-         //restare tick-uri
+            //restare tick-uri
             if(gamepad2.square)
             {robot.ridicareBrat.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-            robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);}
+                robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);}
 
 //            if(robot.touchSensor.isPressed())
 //            {robot.ridicareBrat.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -327,11 +327,11 @@ public class Malboro extends LinearOpMode {
             //rotatie brat
             if(gamepad2.dpad_left) {
                 //if(robot.PivotBrat.getPosition()<=0.77)
-                    robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()+0.03);
+                robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()+0.03);
             }
             if(gamepad2.dpad_right){
                 //if(robot.PivotBrat.getPosition()>=0.50)
-                    robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()-0.03);
+                robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()-0.03);
             }
 
             if(gamepad2.right_stick_x < 0)

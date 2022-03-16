@@ -26,7 +26,7 @@ public class Dunhill extends LinearOpMode {
     boolean capping_ajustare = false;
     boolean o_ajuns = false;
 
-    double power = 0.6;
+    double power = 0.2;
     int k = 0;
 
     @Override
@@ -247,6 +247,10 @@ public class Dunhill extends LinearOpMode {
                 robot.ridicareBrat.setTargetPosition(700);
             }
 
+            if(gamepad2.a)
+                power = 0.2;
+
+
             if (ridicare_brat && (ticks >= 700 || gamepad2.right_trigger > 0 || gamepad2.left_trigger > 0
                     || gamepad1.right_trigger > 0 || gamepad1.left_trigger > 0 || capping)) {
                 robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -377,7 +381,7 @@ public class Dunhill extends LinearOpMode {
             if (gamepad2.left_stick_button)
                 power = 1;
             if (gamepad2.right_stick_button)
-                power = 0.65;
+                power = 0.2;
 
 
             /* CHESTII DE COD PE CARE POATE LE FOLOSIM*/
