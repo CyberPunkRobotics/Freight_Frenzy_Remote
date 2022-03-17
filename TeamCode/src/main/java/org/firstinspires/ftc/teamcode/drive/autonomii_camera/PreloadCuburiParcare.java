@@ -102,7 +102,7 @@ public class PreloadCuburiParcare extends LinearOpMode {
         currentPose = robot.getPoseEstimate();
 
         TrajectorySequence punePreload = robot.trajectorySequenceBuilder(currentPose)
-                .lineToConstantHeading(new Vector2d(-0.6619354985385653,-46.34777575882209),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .lineToConstantHeading(new Vector2d(-0.6619354985385653,-45.34777575882209),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(49))
                 .addTemporalMarker(0, ()->{robot.RidicareBrat(198,1);})
                 .addTemporalMarker(0.5, ()->{ robot.PivotBrat.setPosition(0.53); })
@@ -138,15 +138,15 @@ public class PreloadCuburiParcare extends LinearOpMode {
                 .addTemporalMarker(1.3,()->{robot.PivotBrat.setPosition(0.68);})
                 .addTemporalMarker(1.4,()->{robot.PivotBrat.setPosition(0.66);})
                 .addTemporalMarker(1.5,()->{robot.PivotBrat.setPosition(0.64);})
-                .addTemporalMarker(1.6,()->{robot.PivotBrat.setPosition(0.62);robot.RidicareBrat(0,0.8);})
+                .addTemporalMarker(1.6,()->{robot.PivotBrat.setPosition(0.62);})
                 .addTemporalMarker(1.7,()->{robot.PivotBrat.setPosition(0.60);})
                 .addTemporalMarker(1.8,()->{robot.PivotBrat.setPosition(0.58);})
                 .addTemporalMarker(1.9,()->{robot.PivotBrat.setPosition(0.56);})
                 .addTemporalMarker(2.0,()->{robot.PivotBrat.setPosition(0.54);})
                 .addTemporalMarker(2.1,()->{robot.PivotBrat.setPosition(0.52);})
-                .addTemporalMarker(2.2,()->{robot.PivotBrat.setPosition(0.50);})
+                .addTemporalMarker(2.2,()->{robot.PivotBrat.setPosition(0.50);robot.RidicareBrat(0,0.7);})
                 .waitSeconds(0.7)
-                .strafeRight(7)
+                .strafeRight(8)
                 .splineToConstantHeading(new Vector2d(38.79158659407203, -62.58922924676717),0 , SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(62))
                 .build();
@@ -240,9 +240,12 @@ public class PreloadCuburiParcare extends LinearOpMode {
                 .addTemporalMarker(1.8,()->{robot.PivotBrat.setPosition(0.52);})
                 .addTemporalMarker(1.9,()->{robot.PivotBrat.setPosition(0.50);})
                 .waitSeconds(0.7)
-                .strafeRight(4.5)
-                .splineToConstantHeading(new Vector2d(42.79158659407203, -62.58922924676717),0 , SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .strafeRight(5)
+//                .splineToConstantHeading(new Vector2d(42.79158659407203, -62.58922924676717),0 , SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+//                        SampleMecanumDrive.getAccelerationConstraint(62))
+                .splineToConstantHeading(new Vector2d(34.79158659407203, -62.58922924676717),0 , SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(62))
+                .lineToLinearHeading(new Pose2d(50.79158659407203, -60.58922924676717,Math.toRadians(30)))
                 .build();
 
         robot.followTrajectorySequence(mergeInWareHouseDupa1);
@@ -403,8 +406,11 @@ public class PreloadCuburiParcare extends LinearOpMode {
                 .addTemporalMarker(1.9,()->{robot.PivotBrat.setPosition(0.50);})
                 .waitSeconds(0.7)
                 .strafeRight(6.7)
-                .splineToConstantHeading(new Vector2d(42.79158659407203, -62.58922924676717),0 , SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+//                .splineToConstantHeading(new Vector2d(42.79158659407203, -62.58922924676717),0 , SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+//                        SampleMecanumDrive.getAccelerationConstraint(62))
+                .splineToConstantHeading(new Vector2d(34.79158659407203, -62.58922924676717),0 , SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(62))
+                .lineToLinearHeading(new Pose2d(50.79158659407203, -60.58922924676717,Math.toRadians(30)))
                 .build();
 
         robot.followTrajectorySequence(mergeInWareHouseDupa1);
@@ -427,7 +433,7 @@ public class PreloadCuburiParcare extends LinearOpMode {
                 .addTemporalMarker(0, ()->{robot.RidicareBrat(730,1);})
                 .waitSeconds(0.65)
                 .lineToConstantHeading(new Vector2d(-0.6619354985385653,-46.34777575882209),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
-                        SampleMecanumDrive.getAccelerationConstraint(35))
+                        SampleMecanumDrive.getAccelerationConstraint(29))
                 .addTemporalMarker(0.8, ()->{ robot.PivotBrat.setPosition(0.53); })
                 .addTemporalMarker(0.9, ()->{ robot.PivotBrat.setPosition(0.56); })
                 .addTemporalMarker(1.0, ()->{ robot.PivotBrat.setPosition(0.59); })
@@ -565,8 +571,11 @@ public class PreloadCuburiParcare extends LinearOpMode {
                 .addTemporalMarker(1.9,()->{robot.PivotBrat.setPosition(0.50);})
                 .waitSeconds(0.7)
                 .strafeRight(6.7)
-                .splineToConstantHeading(new Vector2d(42.79158659407203, -62.58922924676717),0 , SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+//                .splineToConstantHeading(new Vector2d(42.79158659407203, -62.58922924676717),0 , SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+//                        SampleMecanumDrive.getAccelerationConstraint(62))
+                .splineToConstantHeading(new Vector2d(34.79158659407203, -62.58922924676717),0 , SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(62))
+                .lineToLinearHeading(new Pose2d(50.79158659407203, -60.58922924676717,Math.toRadians(30)))
                 .build();
 
         robot.followTrajectorySequence(mergeInWareHouseDupa1);

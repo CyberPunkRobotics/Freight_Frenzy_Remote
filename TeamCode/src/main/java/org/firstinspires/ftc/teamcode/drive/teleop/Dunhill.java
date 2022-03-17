@@ -26,7 +26,7 @@ public class Dunhill extends LinearOpMode {
     boolean capping_ajustare = false;
     boolean o_ajuns = false;
 
-    double power = 0.2;
+    double power = 0.6;
     int k = 0;
 
     @Override
@@ -94,7 +94,7 @@ public class Dunhill extends LinearOpMode {
             double x = -gamepad1.left_stick_x;
             double y = -gamepad1.left_stick_y;
 
-            double direction = Math.atan2(x, y) - Math.toRadians(robot.getAngle()) + Math.PI / 2;
+            double direction = Math.atan2(x, y) - Math.toRadians(robot.getAngle()) + 3*Math.PI/2;
             double ipotenuse = Math.sqrt(x * x + y * y);
             double rotate = gamepad1.right_stick_x * 0.50;
             double strafe = Math.sin(direction) * ipotenuse;
@@ -364,7 +364,7 @@ public class Dunhill extends LinearOpMode {
                     robot.PivotBrat.setPosition(robot.PivotBrat.getPosition() + 0.03);
             }
             if (gamepad2.dpad_right) {
-                if (robot.PivotBrat.getPosition() >= 0.25)
+                if (robot.PivotBrat.getPosition() >= 0.22)
                     robot.PivotBrat.setPosition(robot.PivotBrat.getPosition() - 0.03);
             }
 

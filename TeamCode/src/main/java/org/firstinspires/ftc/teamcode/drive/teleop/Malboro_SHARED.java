@@ -325,11 +325,11 @@ public class Malboro_SHARED extends LinearOpMode {
             else {robot.rata.setPower(0);robot.rata.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);}
 
             //rotatie brat
-            if(gamepad2.dpad_left) {
+            if(gamepad2.dpad_right) {
                 //if(robot.PivotBrat.getPosition()<=0.77)
                 robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()+0.03);
             }
-            if(gamepad2.dpad_right){
+            if(gamepad2.dpad_left){
                 //if(robot.PivotBrat.getPosition()>=0.50)
                 robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()-0.03);
             }

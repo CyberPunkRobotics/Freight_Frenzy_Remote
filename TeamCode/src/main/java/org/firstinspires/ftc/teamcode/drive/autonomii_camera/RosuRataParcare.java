@@ -213,12 +213,14 @@ public class RosuRataParcare extends LinearOpMode {
         Pose2d currentPose = robot.getPoseEstimate();
 
         TrajectorySequence RotireRata = robot.trajectorySequenceBuilder(currentPose)
+                .addTemporalMarker(0,()->{robot.RidicareBrat(700,0.2);})
                 .lineTo(new Vector2d(-62.91550487865194, -61.5),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(25))
-                .addTemporalMarker(1, ()->{robot.rata.setPower(0.6);}) //0.55
+                .addTemporalMarker(1, ()->{robot.rata.setPower(0.75);}) //0.55 0.6
                 .waitSeconds(2)
                 .addTemporalMarker(3,()->{robot.rata.setPower(0);})
-                .addTemporalMarker(0,()->{robot.RidicareBrat(700,0.2);})
+//                .forward(10)
+//                .strafeRight(4)
                 .build();
 
         robot.followTrajectorySequence(RotireRata);
@@ -237,13 +239,8 @@ public class RosuRataParcare extends LinearOpMode {
                 .addTemporalMarker(0.8, ()->{ robot.PivotBrat.setPosition(0.62); })
                 .addTemporalMarker(1.2, ()->{ robot.PivotBrat.setPosition(0.65); })
                 .addTemporalMarker(1.3, ()->{ robot.PivotBrat.setPosition(0.66); })
-//                .addTemporalMarker(1.1, ()->{ robot.PivotBrat.setPosition(0.71); })
                 .addTemporalMarker(2.4, ()->{robot.intake.setPower(-0.99);})
                 .waitSeconds(0.7)
-//                .addTemporalMarker(2.6, ()->{ robot.PivotBrat.setPosition(0.73); })
-//                .addTemporalMarker(2.7, ()->{ robot.PivotBrat.setPosition(0.71); })
-//                .addTemporalMarker(2.8, ()->{ robot.PivotBrat.setPosition(0.69); })
-//                .addTemporalMarker(2.9, ()->{ robot.PivotBrat.setPosition(0.67); })
                 .addTemporalMarker(3.1, ()->{ robot.PivotBrat.setPosition(0.65);robot.intake.setPower(0); })
                 .addTemporalMarker(3.2, ()->{ robot.PivotBrat.setPosition(0.63); })
                 .addTemporalMarker(3.3, ()->{ robot.PivotBrat.setPosition(0.61); })
@@ -279,8 +276,7 @@ public class RosuRataParcare extends LinearOpMode {
                 .addTemporalMarker(5.9,()->{robot.PivotBrat.setPosition(0.04);})
                 .addTemporalMarker(6,()->{robot.PivotBrat.setPosition(0.02);})
                 .addTemporalMarker(6.1,()->{robot.PivotBrat.setPosition(0.01);})
-                .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(  -27.98146174877701, -70.1442651728134),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .lineToConstantHeading(new Vector2d(  -27.98146174877701, -68.0442651728134),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(2))
                 .build(); //daca nu merge cu nationala facem battle bots in parcu teilor #Iftime Mihail Kogalniceanu !!!nu se sterge
 
@@ -289,52 +285,69 @@ public class RosuRataParcare extends LinearOpMode {
         robot.updatePoseEstimate();
         currentPose = robot.getPoseEstimate();
 
-        TrajectorySequence IaRataSiOPune = robot.trajectorySequenceBuilder(currentPose)
-                .back(22.5,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+        TrajectorySequence IaRata = robot.trajectorySequenceBuilder(currentPose)
+                .back(22,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(5))
                 .addTemporalMarker(0,()->{robot.intake.setPower(0.99);})
-//                .addTemporalMarker(4,()->{robot.intake.setPower(0);})
-//                .waitSeconds(1)
-                .lineToConstantHeading(new Vector2d(  -27.98146174877701, -48.86293767005846),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
-                        SampleMecanumDrive.getAccelerationConstraint(20))
-                .addTemporalMarker(6,()->{robot.RidicareBrat(725,1);})
-                .addTemporalMarker(5.9,()->{robot.PivotBrat.setPosition(0.04);})
-                .addTemporalMarker(6.0,()->{robot.PivotBrat.setPosition(0.08);})
-                .addTemporalMarker(6.1,()->{robot.PivotBrat.setPosition(0.12);robot.intake.setPower(0);})
-                .addTemporalMarker(6.2,()->{robot.PivotBrat.setPosition(0.16);})
-                .addTemporalMarker(6.3,()->{robot.PivotBrat.setPosition(0.2);})
-                .addTemporalMarker(6.4,()->{robot.PivotBrat.setPosition(0.24);})
-                .addTemporalMarker(6.5,()->{robot.PivotBrat.setPosition(0.28);})
-                .addTemporalMarker(6.6,()->{robot.PivotBrat.setPosition(0.32);})
-                .addTemporalMarker(6.7,()->{robot.PivotBrat.setPosition(0.36);})
-                .addTemporalMarker(6.8,()->{robot.PivotBrat.setPosition(0.4);})
-                .addTemporalMarker(6.9,()->{robot.PivotBrat.setPosition(0.46);})
-                .addTemporalMarker(7.0,()->{robot.PivotBrat.setPosition(0.5);})
-                .addTemporalMarker(7.1,()->{robot.PivotBrat.setPosition(0.54);})
-                .addTemporalMarker(7.2,()->{robot.PivotBrat.setPosition(0.58);})
-                .addTemporalMarker(7.3,()->{robot.PivotBrat.setPosition(0.62);})
-                .addTemporalMarker(7.4,()->{robot.PivotBrat.setPosition(0.64);})
-                .addTemporalMarker(7.5,()->{robot.PivotBrat.setPosition(0.65);})
-                .addTemporalMarker(7.6,()->{robot.PivotBrat.setPosition(0.65);})
-                .addTemporalMarker(7.8,()->{robot.intake.setPower(-0.99);})
-                .waitSeconds(2)
-//                .addTemporalMarker(10, ()->{ robot.PivotBrat.setPosition(0.65); })
-                .addTemporalMarker(10.8, ()->{ robot.PivotBrat.setPosition(0.63); })
-                .addTemporalMarker(10.9, ()->{ robot.PivotBrat.setPosition(0.61); })
-                .addTemporalMarker(11.0, ()->{ robot.PivotBrat.setPosition(0.59); })
-                .addTemporalMarker(11.1, ()->{ robot.PivotBrat.setPosition(0.57); })
-                .addTemporalMarker(11.2, ()->{ robot.PivotBrat.setPosition(0.55); })
-                .addTemporalMarker(11.3, ()->{ robot.PivotBrat.setPosition(0.53); })
-                .addTemporalMarker(11.4, ()->{ robot.PivotBrat.setPosition(0.5);robot.intake.setPower(0);robot.RidicareBrat(0,1);})
-                .back(5)
-//                .forward(75,SampleMecanumDrive.getVelocityConstraint(30, 5.788888931274414,10),
-//                        SampleMecanumDrive.getAccelerationConstraint(15))
                 .build();
 
-        robot.followTrajectorySequence(IaRataSiOPune);
+        robot.followTrajectorySequence(IaRata);
 
         robot.updatePoseEstimate();
         currentPose = robot.getPoseEstimate();
+
+        TrajectorySequence PuneRata = robot.trajectorySequenceBuilder(currentPose)
+                .lineToConstantHeading(new Vector2d(  -26.98146174877701, -48.56293767005846),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                        SampleMecanumDrive.getAccelerationConstraint(20))
+                .addTemporalMarker(0.6,()->{robot.RidicareBrat(725,1);})
+                .addTemporalMarker(0.7,()->{robot.PivotBrat.setPosition(0.04);})
+                .addTemporalMarker(0.8,()->{robot.PivotBrat.setPosition(0.08);})
+                .addTemporalMarker(0.9,()->{robot.PivotBrat.setPosition(0.12);robot.intake.setPower(0);})
+                .addTemporalMarker(1.0,()->{robot.PivotBrat.setPosition(0.16);})
+                .addTemporalMarker(1.1,()->{robot.PivotBrat.setPosition(0.2);})
+                .addTemporalMarker(1.2,()->{robot.PivotBrat.setPosition(0.24);})
+                .addTemporalMarker(1.3,()->{robot.PivotBrat.setPosition(0.28);})
+                .addTemporalMarker(1.4,()->{robot.PivotBrat.setPosition(0.32);})
+                .addTemporalMarker(1.5,()->{robot.PivotBrat.setPosition(0.36);})
+                .addTemporalMarker(1.6,()->{robot.PivotBrat.setPosition(0.4);})
+                .addTemporalMarker(1.7,()->{robot.PivotBrat.setPosition(0.46);})
+                .addTemporalMarker(1.8,()->{robot.PivotBrat.setPosition(0.5);})
+                .addTemporalMarker(1.9,()->{robot.PivotBrat.setPosition(0.54);})
+                .addTemporalMarker(2.0,()->{robot.PivotBrat.setPosition(0.58);})
+                .addTemporalMarker(2.1,()->{robot.PivotBrat.setPosition(0.62);})
+                .addTemporalMarker(2.2,()->{robot.PivotBrat.setPosition(0.64);})
+                .addTemporalMarker(2.3,()->{robot.PivotBrat.setPosition(0.65);})
+                .addTemporalMarker(2.3,()->{robot.PivotBrat.setPosition(0.68);})
+                .addTemporalMarker(2.6,()->{robot.intake.setPower(-0.99);})
+                .waitSeconds(1.5)
+                .build();
+
+        robot.followTrajectorySequence(PuneRata);
+
+        robot.updatePoseEstimate();
+        currentPose = robot.getPoseEstimate();
+
+        robot.RidicareBrat(0,0.8);
+
+        TrajectorySequence Parcheaza = robot.trajectorySequenceBuilder(currentPose)
+                .strafeRight(2)
+                .splineToConstantHeading(new Vector2d(-63.505756564194397,-44.00075310738899),170,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                        SampleMecanumDrive.getAccelerationConstraint(35))
+                .back(5)
+                .addTemporalMarker(()->{robot.intake.setPower(0);})
+                .addTemporalMarker(1.1, ()->{ robot.PivotBrat.setPosition(0.63);robot.intake.setPower(0); })
+                .addTemporalMarker(1.2, ()->{ robot.PivotBrat.setPosition(0.61); })
+                .addTemporalMarker(1.3, ()->{ robot.PivotBrat.setPosition(0.59); })
+                .addTemporalMarker(1.4, ()->{ robot.PivotBrat.setPosition(0.57); })
+                .addTemporalMarker(1.5, ()->{ robot.PivotBrat.setPosition(0.55); })
+                .addTemporalMarker(1.6, ()->{ robot.PivotBrat.setPosition(0.53); })
+                .addTemporalMarker(1.7, ()->{ robot.PivotBrat.setPosition(0.5);robot.intake.setPower(0);})
+                .build();
+
+        robot.followTrajectorySequence(Parcheaza);
+
+
+
 
        /* TrajectorySequence puneRata = robot.trajectorySequenceBuilder(currentPose)
                 .addTemporalMarker(0,()->{robot.RidicareBrat(750,1);})
