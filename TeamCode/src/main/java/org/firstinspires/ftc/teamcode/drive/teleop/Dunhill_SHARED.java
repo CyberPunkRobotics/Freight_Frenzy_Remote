@@ -82,8 +82,8 @@ public class Dunhill_SHARED extends LinearOpMode {
             /** GAMEPAD 1 */
 
             //Senzori distanta de la senzori culoare
-            double dD = robot.distantaDreapta.getDistance(DistanceUnit.CM);
-            double dS = robot.distantaStanga.getDistance(DistanceUnit.CM);
+//            double dD = robot.distantaDreapta.getDistance(DistanceUnit.CM);
+//            double dS = robot.distantaStanga.getDistance(DistanceUnit.CM);
             double dI = robot.distantaIntake.getDistance(DistanceUnit.CM);
 
 
@@ -92,7 +92,7 @@ public class Dunhill_SHARED extends LinearOpMode {
             double x = -gamepad1.left_stick_x;
             double y = -gamepad1.left_stick_y;
 
-            double direction = Math.atan2(x, y) - Math.toRadians(robot.getAngle()) + Math.PI / 2;
+            double direction = Math.atan2(x, y) - Math.toRadians(robot.getAngle()) + 3*Math.PI / 2;
             double ipotenuse = Math.sqrt(x * x + y * y);
             double rotate = gamepad1.right_stick_x * 0.50;
             double strafe = Math.sin(direction) * ipotenuse;
@@ -128,9 +128,9 @@ public class Dunhill_SHARED extends LinearOpMode {
 
 
             //senzori culoare
-            double rStanga = robot.culoareSpate.red();
-            double gStanga = robot.culoareSpate.green();
-            double bStanga = robot.culoareSpate.blue();
+//            double rStanga = robot.culoareSpate.red();
+//            double gStanga = robot.culoareSpate.green();
+//            double bStanga = robot.culoareSpate.blue();
 
 
 
@@ -266,7 +266,7 @@ public class Dunhill_SHARED extends LinearOpMode {
             if(dI>2.5)
                 o_ajuns = false;
 
-            if(gamepad2.circle)
+            if(gamepad2.triangle)
                 power = 0.2;
 
 //
@@ -319,18 +319,18 @@ public class Dunhill_SHARED extends LinearOpMode {
 
             //carusel //da
             if(gamepad2.right_bumper)
-                robot.rata.setPower(0.8);
+                robot.rata.setPower(-0.8);
 //            else if(gamepad2.left_bumper)
 //                robot.rata.setPower(-0.1);
             else {robot.rata.setPower(0);robot.rata.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);}
 
             //rotatie brat
-            if(gamepad2.dpad_left) {
-                //if(robot.PivotBrat.getPosition()<=0.77)
+            if(gamepad2.dpad_right) {
+                if(robot.PivotBrat.getPosition()<=0.77)
                 robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()+0.03);
             }
-            if(gamepad2.dpad_right){
-                //if(robot.PivotBrat.getPosition()>=0.50)
+            if(gamepad2.dpad_left){
+                if(robot.PivotBrat.getPosition()>=0.50)
                 robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()-0.03);
             }
 
@@ -404,14 +404,15 @@ public class Dunhill_SHARED extends LinearOpMode {
             dashboardTelemetry.addData("ticks:", ticks);
             dashboardTelemetry.addData("Color intake ", robot.culoareIntake.getNormalizedColors().toColor());
             dashboardTelemetry.addData("Color intake: ","R %d G %d B %d A %d", robot.culoareIntake.red(), robot.culoareIntake.blue(), robot.culoareIntake.green(), robot.culoareIntake.alpha());
-            dashboardTelemetry.addData("Color spate ", robot.culoareSpate.getNormalizedColors().toColor());
-            dashboardTelemetry.addData("Color spate","R %d G %d B %d", robot.culoareSpate.red(), robot.culoareSpate.blue(), robot.culoareSpate.green(),robot.culoareSpate.alpha());
+            //dashboardTelemetry.addData("Color spate ", robot.culoareSpate.getNormalizedColors().toColor());
+            //dashboardTelemetry.addData("Color spate","R %d G %d B %d", robot.culoareSpate.red(), robot.culoareSpate.blue(), robot.culoareSpate.green(),robot.culoareSpate.alpha());
             dashboardTelemetry.addData("x", robot.getPoseEstimate().getX());
             dashboardTelemetry.addData("y", robot.getPoseEstimate().getY());
             dashboardTelemetry.addData("Pozitie robot",pozitie);
             dashboardTelemetry.addData("distanta intake", robot.distantaIntake.getDistance(DistanceUnit.CM));
             dashboardTelemetry.addData("Brat mode", robot.ridicareBrat.getMode());
-            dashboardTelemetry.addData("Touch Sensor", robot.touchSensor.isPressed());
+            //dashboardTelemetry.addData("Touch Sensor", robot.touchSensor.isPressed());
+            dashboardTelemetry.addData("PUTERE ROBOT", power);
 //            if(robot.culoareIntake.alpha() > 2000)
 //                dashboardTelemetry.addData("In intake: ","CUB");
 //            else if (robot.culoareIntake.alpha() < 2000 && dI < 2)

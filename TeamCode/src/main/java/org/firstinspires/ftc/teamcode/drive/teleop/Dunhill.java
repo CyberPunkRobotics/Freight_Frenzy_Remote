@@ -84,8 +84,8 @@ public class Dunhill extends LinearOpMode {
             /** GAMEPAD 1 */
 
             //Senzori distanta de la senzori culoare
-            double dD = robot.distantaDreapta.getDistance(DistanceUnit.CM);
-            double dS = robot.distantaStanga.getDistance(DistanceUnit.CM);
+//            //double dD = robot.distantaDreapta.getDistance(DistanceUnit.CM);
+//            double dS = robot.distantaStanga.getDistance(DistanceUnit.CM);
             double dI = robot.distantaIntake.getDistance(DistanceUnit.CM);
 
 
@@ -128,9 +128,9 @@ public class Dunhill extends LinearOpMode {
 
 
             //senzori culoare
-            double rStanga = robot.culoareSpate.red();
-            double gStanga = robot.culoareSpate.green();
-            double bStanga = robot.culoareSpate.blue();
+//            double rStanga = robot.culoareSpate.red();
+//            double gStanga = robot.culoareSpate.green();
+//            double bStanga = robot.culoareSpate.blue();
 
 
             //actionare intake
@@ -247,7 +247,7 @@ public class Dunhill extends LinearOpMode {
                 robot.ridicareBrat.setTargetPosition(700);
             }
 
-            if(gamepad2.a)
+            if(gamepad2.triangle)
                 power = 0.2;
 
 
@@ -276,7 +276,7 @@ public class Dunhill extends LinearOpMode {
                 robot.ridicareBrat.setPower(putereBrat);
 
             }
-            if (capping && (ticks >= 246 || gamepad2.right_trigger > 0 || gamepad2.left_trigger > 0
+            if (capping && (ticks >= 700 || gamepad2.right_trigger > 0 || gamepad2.left_trigger > 0
                     || gamepad1.right_trigger > 0 || gamepad1.left_trigger > 0 || ridicare_brat)) {
                 robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 robot.ridicareBrat.setPower(0);
@@ -287,17 +287,18 @@ public class Dunhill extends LinearOpMode {
             if (gamepad1.dpad_up)
                 capping_ajustare = true;
 
-            if (!robot.touchSensor.isPressed() && capping_ajustare) {
-                robot.ridicareBrat.setPower(-0.05);
-//                robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            } else if (capping_ajustare && robot.touchSensor.isPressed()) {
-                robot.ridicareBrat.setPower(0);
-                capping_ajustare = false;
-                capping = true;
-                k++;
-                robot.ridicareBrat.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//                robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            } else k = 0;
+//cica capping
+//            if (!robot.touchSensor.isPressed() && capping_ajustare) {
+//                robot.ridicareBrat.setPower(-0.05);
+////                robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//            } else if (capping_ajustare && robot.touchSensor.isPressed()) {
+//                robot.ridicareBrat.setPower(0);
+//                capping_ajustare = false;
+//                capping = true;
+//                k++;
+//                robot.ridicareBrat.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+////                robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//            } else k = 0;
 
 //
 //            //resetare pozitii brat cu touch sensor.
@@ -350,7 +351,7 @@ public class Dunhill extends LinearOpMode {
 
             //carusel //da
             if (gamepad2.right_bumper)
-                robot.rata.setPower(0.8);
+                robot.rata.setPower(-0.8);
 //            else if(gamepad2.left_bumper)
 //                robot.rata.setPower(-0.1);
             else {
@@ -441,14 +442,15 @@ public class Dunhill extends LinearOpMode {
             dashboardTelemetry.addData("Ticks", putereBrat);
             dashboardTelemetry.addData("Color intake ", robot.culoareIntake.getNormalizedColors().toColor());
             dashboardTelemetry.addData("Color intake: ", "R %d G %d B %d A %d", robot.culoareIntake.red(), robot.culoareIntake.blue(), robot.culoareIntake.green(), robot.culoareIntake.alpha());
-            dashboardTelemetry.addData("Color spate ", robot.culoareSpate.getNormalizedColors().toColor());
-            dashboardTelemetry.addData("Color spate", "R %d G %d B %d", robot.culoareSpate.red(), robot.culoareSpate.blue(), robot.culoareSpate.green(), robot.culoareSpate.alpha());
+            //dashboardTelemetry.addData("Color spate ", robot.culoareSpate.getNormalizedColors().toColor());
+            //dashboardTelemetry.addData("Color spate", "R %d G %d B %d", robot.culoareSpate.red(), robot.culoareSpate.blue(), robot.culoareSpate.green(), robot.culoareSpate.alpha());
             dashboardTelemetry.addData("x", robot.getPoseEstimate().getX());
             dashboardTelemetry.addData("y", robot.getPoseEstimate().getY());
             dashboardTelemetry.addData("Pozitie robot", pozitie);
             dashboardTelemetry.addData("distanta intake", robot.distantaIntake.getDistance(DistanceUnit.CM));
             dashboardTelemetry.addData("Brat mode", robot.ridicareBrat.getMode());
-            dashboardTelemetry.addData("Touch Sensor", robot.touchSensor.isPressed());
+            //dashboardTelemetry.addData("Touch Sensor", robot.touchSensor.isPressed());
+            dashboardTelemetry.addData("PUTERE ROBOT", power);
 //            if(robot.culoareIntake.alpha() > 2000)
 //                dashboardTelemetry.addData("In intake: ","CUB");
 //            else if (robot.culoareIntake.alpha() < 2000 && dI < 2)

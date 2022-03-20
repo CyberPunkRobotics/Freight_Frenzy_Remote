@@ -106,16 +106,16 @@ public class SampleMecanumDrive extends MecanumDrive {
     public Servo cap;
 
     //senzori distanta
-    public DistanceSensor distantaDreapta;
-    public DistanceSensor distantaStanga;
+    //public DistanceSensor distantaDreapta;
+    //public DistanceSensor distantaStanga;
     public DistanceSensor distantaIntake; //distanta senzor culoare
 
     //senzori culoare
-    public RevColorSensorV3 culoareSpate = null;
+    //public RevColorSensorV3 culoareSpate = null;
     public RevColorSensorV3  culoareIntake = null;
 
     //touch sensor
-    public RevTouchSensor touchSensor;
+    //public RevTouchSensor touchSensor;
 
     int lastTick;
 
@@ -159,18 +159,19 @@ public class SampleMecanumDrive extends MecanumDrive {
         rightFront = hardwareMap.get(DcMotorEx.class, "dreaptaFata");
 
         motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
+        motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
 
         //senzori distanta
-        distantaDreapta = hardwareMap.get(DistanceSensor.class, "distantaDreapta");
-        distantaStanga = hardwareMap.get(DistanceSensor.class, "distantaStanga");
+        //DistantaDreapta = hardwareMap.get(DistanceSensor.class, "distantaDreapta");
+        //distantaStanga = hardwareMap.get(DistanceSensor.class, "distantaStanga");
         distantaIntake=hardwareMap.get(DistanceSensor.class,"culoareIntake"); //senzor distanta de la senzor de culoare
 
         //senzori culoare
-        culoareSpate=hardwareMap.get(RevColorSensorV3.class, "culoareSpate");
+        //culoareSpate=hardwareMap.get(RevColorSensorV3.class, "culoareSpate");
         culoareIntake=hardwareMap.get(RevColorSensorV3.class,"culoareIntake");
 
         //touch sensor
-        touchSensor = hardwareMap.get(RevTouchSensor.class,"touch_sensor");
+        //touchSensor = hardwareMap.get(RevTouchSensor.class,"touch_sensor");
 
 
         for (DcMotorEx motor : motors) {

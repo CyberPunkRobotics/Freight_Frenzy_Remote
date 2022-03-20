@@ -26,8 +26,8 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
-@Autonomous(name="PreloadCuburiParcare", group="Auto")
-public class PreloadCuburiParcare extends LinearOpMode {
+@Autonomous(name="RosuPreloadCuburiParcare", group="Auto")
+public class RosuPreloadCuburiParcare extends LinearOpMode {
 
 
     FtcDashboard dashboard;
@@ -157,7 +157,7 @@ public class PreloadCuburiParcare extends LinearOpMode {
         currentPose = robot.getPoseEstimate();
 
         TrajectorySequence iaCub = robot.trajectorySequenceBuilder(currentPose)
-                .forward(10,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .forward(18,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(2))
                 .addTemporalMarker(0, () -> { robot.intake.setPower(0.99);})
                 .addTemporalMarker(0.5, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
@@ -185,7 +185,18 @@ public class PreloadCuburiParcare extends LinearOpMode {
                 .addTemporalMarker(2.7, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
                 .addTemporalMarker(2.8, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
                 .addTemporalMarker(2.9, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
-                .addTemporalMarker(3.0, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.1, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.2, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.3, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.4, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.5, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.6, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.7, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.8, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.9, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(4.0, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(4.1, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(4.2, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
                 .build();
 
         robot.followTrajectorySequence(iaCub);
@@ -245,7 +256,7 @@ public class PreloadCuburiParcare extends LinearOpMode {
 //                        SampleMecanumDrive.getAccelerationConstraint(62))
                 .splineToConstantHeading(new Vector2d(34.79158659407203, -62.58922924676717),0 , SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(62))
-                .lineToLinearHeading(new Pose2d(50.79158659407203, -60.58922924676717,Math.toRadians(30)))
+                .lineToLinearHeading(new Pose2d(50.79158659407203, -60.58922924676717))
                 .build();
 
         robot.followTrajectorySequence(mergeInWareHouseDupa1);
@@ -321,7 +332,7 @@ public class PreloadCuburiParcare extends LinearOpMode {
         currentPose = robot.getPoseEstimate();
 
         TrajectorySequence iaCub = robot.trajectorySequenceBuilder(currentPose)
-                .forward(10,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .forward(18,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(2))
                 .addTemporalMarker(0, () -> { robot.intake.setPower(0.99);})
                 .addTemporalMarker(0.5, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
@@ -349,7 +360,18 @@ public class PreloadCuburiParcare extends LinearOpMode {
                 .addTemporalMarker(2.7, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
                 .addTemporalMarker(2.8, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
                 .addTemporalMarker(2.9, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
-                .addTemporalMarker(3.0, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.1, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.2, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.3, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.4, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.5, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.6, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.7, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.8, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.9, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(4.0, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(4.1, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(4.2, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
                 .build();
 
         robot.followTrajectorySequence(iaCub);
@@ -410,7 +432,7 @@ public class PreloadCuburiParcare extends LinearOpMode {
 //                        SampleMecanumDrive.getAccelerationConstraint(62))
                 .splineToConstantHeading(new Vector2d(34.79158659407203, -62.58922924676717),0 , SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(62))
-                .lineToLinearHeading(new Pose2d(50.79158659407203, -60.58922924676717,Math.toRadians(30)))
+                .lineToLinearHeading(new Pose2d(50.79158659407203, -60.58922924676717))
                 .build();
 
         robot.followTrajectorySequence(mergeInWareHouseDupa1);
@@ -433,7 +455,7 @@ public class PreloadCuburiParcare extends LinearOpMode {
                 .addTemporalMarker(0, ()->{robot.RidicareBrat(730,1);})
                 .waitSeconds(0.65)
                 .lineToConstantHeading(new Vector2d(-0.6619354985385653,-46.34777575882209),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
-                        SampleMecanumDrive.getAccelerationConstraint(29))
+                        SampleMecanumDrive.getAccelerationConstraint(20))
                 .addTemporalMarker(0.8, ()->{ robot.PivotBrat.setPosition(0.53); })
                 .addTemporalMarker(0.9, ()->{ robot.PivotBrat.setPosition(0.56); })
                 .addTemporalMarker(1.0, ()->{ robot.PivotBrat.setPosition(0.59); })
@@ -486,7 +508,7 @@ public class PreloadCuburiParcare extends LinearOpMode {
         currentPose = robot.getPoseEstimate();
 
         TrajectorySequence iaCub = robot.trajectorySequenceBuilder(currentPose)
-                .forward(10,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .forward(18,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(2))
                 .addTemporalMarker(0, () -> { robot.intake.setPower(0.99);})
                 .addTemporalMarker(0.5, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
@@ -514,7 +536,18 @@ public class PreloadCuburiParcare extends LinearOpMode {
                 .addTemporalMarker(2.7, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
                 .addTemporalMarker(2.8, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
                 .addTemporalMarker(2.9, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
-                .addTemporalMarker(3.0, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.1, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.2, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.3, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.4, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.5, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.6, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.7, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.8, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(3.9, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(4.0, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(4.1, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
+                .addTemporalMarker(4.2, () -> { if (robot.distantaIntake.getDistance(DistanceUnit.CM) <= 2.5) { robot.intake.setPower(0);robot.breakFollowing(); } })
                 .build();
 
         robot.followTrajectorySequence(iaCub);
@@ -575,7 +608,7 @@ public class PreloadCuburiParcare extends LinearOpMode {
 //                        SampleMecanumDrive.getAccelerationConstraint(62))
                 .splineToConstantHeading(new Vector2d(34.79158659407203, -62.58922924676717),0 , SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(62))
-                .lineToLinearHeading(new Pose2d(50.79158659407203, -60.58922924676717,Math.toRadians(30)))
+                .lineToLinearHeading(new Pose2d(50.79158659407203, -60.58922924676717))
                 .build();
 
         robot.followTrajectorySequence(mergeInWareHouseDupa1);
