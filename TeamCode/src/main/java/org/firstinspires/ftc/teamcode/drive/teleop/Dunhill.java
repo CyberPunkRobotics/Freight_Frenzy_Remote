@@ -25,7 +25,9 @@ public class Dunhill extends LinearOpMode {
     boolean ridicare_brat = false;
     boolean capping_ajustare = false;
     boolean o_ajuns = false;
+    boolean capping = false;
 
+    double capping_power = 0.3;
     double power = 0.6;
     int k = 0;
 
@@ -270,7 +272,7 @@ public class Dunhill extends LinearOpMode {
                 o_ajuns = false;
 
             //Ridicare Capping
-            if (capping) {
+            /*if (capping) {
                 putereBrat = ticks == 0 ? 1 : (double) 12.0 / (Math.abs(ticks) * 1.0);
                 robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 robot.ridicareBrat.setPower(putereBrat);
@@ -285,7 +287,11 @@ public class Dunhill extends LinearOpMode {
 
             //Resetare cu touch sensor
             if (gamepad1.dpad_up)
-                capping_ajustare = true;
+                capping_ajustare = true;*/
+
+            if(gamepad2.dpad_down){
+                capping = true;
+            }
 
 //cica capping
 //            if (!robot.touchSensor.isPressed() && capping_ajustare) {

@@ -23,11 +23,10 @@ public class Malboro extends LinearOpMode {
     public ElapsedTime brat = new ElapsedTime();
 
     boolean ridicare_brat = false;
-    boolean capping_brat_take = false;
-    boolean capping_brat_ridicare = false;
+    boolean capping_ajustare = false;
     boolean o_ajuns = false;
 
-    double power=0.6;
+    double power = 0.6;
     int k = 0;
 
     @Override
@@ -43,7 +42,7 @@ public class Malboro extends LinearOpMode {
         robot.cap.setPosition(0);
 
         //robot in pozitie de start
-        robot.setPoseEstimate(new Pose2d(34.434152253040736,-63.030941829754916));
+        robot.setPoseEstimate(new Pose2d(34.434152253040736, -63.030941829754916));
 
         //contor tickuri ridicare/coborare brat
         int ticks;
@@ -68,7 +67,10 @@ public class Malboro extends LinearOpMode {
 
         robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        int k =0;
+        int k = 0;
+
+        double putereBrat = 0;
+        boolean capping = false;
 
         while (opModeIsActive()) {
 
@@ -82,17 +84,17 @@ public class Malboro extends LinearOpMode {
             /** GAMEPAD 1 */
 
             //Senzori distanta de la senzori culoare
-            //double dD = robot.distantaDreapta.getDistance(DistanceUnit.CM);
-            //double dS = robot.distantaStanga.getDistance(DistanceUnit.CM);
+//            //double dD = robot.distantaDreapta.getDistance(DistanceUnit.CM);
+//            double dS = robot.distantaStanga.getDistance(DistanceUnit.CM);
             double dI = robot.distantaIntake.getDistance(DistanceUnit.CM);
 
 
             //Miscarea sasiului
 
-             double x = -gamepad1.left_stick_x;
+            double x = -gamepad1.left_stick_x;
             double y = -gamepad1.left_stick_y;
 
-            double direction = Math.atan2(x, y) - Math.toRadians(robot.getAngle()) + Math.PI / 2;
+            double direction = Math.atan2(x, y) - Math.toRadians(robot.getAngle()) + Math.PI/2;
             double ipotenuse = Math.sqrt(x * x + y * y);
             double rotate = gamepad1.right_stick_x * 0.50;
             double strafe = Math.sin(direction) * ipotenuse;
@@ -102,7 +104,6 @@ public class Malboro extends LinearOpMode {
             double rF = power * robot.SQRT(strafe + forward - rotate);
             double lF = -power * robot.SQRT(strafe - forward - rotate);
             double rR = power * robot.SQRT(-strafe + forward - rotate);
-
 
 
 //            //cand esti in warehouse te misti mai incet
@@ -121,10 +122,9 @@ public class Malboro extends LinearOpMode {
 
 //            pozitie = !(robot.getPoseEstimate().getX() > 28) || !(robot.getPoseEstimate().getY() > -70);
 
-            if(gamepad1.left_stick_x == 0 && gamepad1.left_stick_y==0 && gamepad1.right_stick_x == 0){
+            if (gamepad1.left_stick_x == 0 && gamepad1.left_stick_y == 0 && gamepad1.right_stick_x == 0) {
                 robot.stopMotors();
-        }
-
+            }
 
 
             //senzori culoare
@@ -133,11 +133,10 @@ public class Malboro extends LinearOpMode {
 //            double bStanga = robot.culoareSpate.blue();
 
 
-
             //actionare intake
-            if(gamepad1.right_bumper && dI > 1.2)
+            if (gamepad1.right_bumper && dI > 1.2)
                 robot.intake.setPower(0.99);
-            else if(gamepad1.left_bumper)
+            else if (gamepad1.left_bumper)
                 robot.intake.setPower(-0.99);
             else robot.intake.setPower(0);
 
@@ -216,58 +215,90 @@ public class Malboro extends LinearOpMode {
 //            }
 
 
-
             /** GAMEPAD 2 */
 
             //actionare brat
-            double bS,bJ,bS2, bJ2;
+            double bS, bJ, bS2, bJ2;
 
             double putere_brat = 1;
-            bS = putere_brat* gamepad2.right_trigger;
-            bJ = putere_brat* gamepad2.left_trigger;
-            bS2 = 0.3 * gamepad1.left_trigger;
-            bJ2 = 0.3 * gamepad1.right_trigger;
+            bS = putere_brat * gamepad2.right_trigger;
+            bJ = putere_brat * gamepad2.left_trigger;
+            bS2 = 0.3 * gamepad1.right_trigger;
+            bJ2 = 0.3 * gamepad1.left_trigger;
 
-            if(bS > 0)
+            if (bS > 0)
                 robot.ridicareBrat.setPower(bS);
-            else if(bJ > 0)
+            else if (bJ > 0)
                 robot.ridicareBrat.setPower(-bJ);
-            else if(bS2 > 0)
+            else if (bS2 > 0)
                 robot.ridicareBrat.setPower(bS2);
-            else if(bJ2 > 0)
+            else if (bJ2 > 0)
                 robot.ridicareBrat.setPower(-bJ2);
-            else if(gamepad2.right_trigger == 0 && gamepad2.left_trigger == 0 && gamepad1.right_trigger==0 && gamepad1.left_trigger == 0 &&
-                    !ridicare_brat && !capping_brat_take) robot.ridicareBrat.setPower(0);
+            else if (gamepad2.right_trigger == 0 && gamepad2.left_trigger == 0 && gamepad1.right_trigger == 0 && gamepad1.left_trigger == 0 &&
+                    !ridicare_brat && !capping) robot.ridicareBrat.setPower(0);
 
             //ridicare brat autonoma
 
-                  //nivel 3 cu dpad
-            if (gamepad2.dpad_up){
+            //nivel 3 cu dpad
+            if (gamepad2.dpad_up) {
                 ridicare_brat = true;
                 robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 robot.ridicareBrat.setPower(1);
                 robot.ridicareBrat.setTargetPosition(700);
             }
-            if(ridicare_brat && (ticks >= 700 || gamepad2.right_trigger> 0 || gamepad2.left_trigger > 0
-                    || gamepad1.right_trigger>0 || gamepad1.left_trigger>0)){
+
+            if(gamepad2.triangle)
+                power = 0.2;
+
+
+            if (ridicare_brat && (ticks >= 700 || gamepad2.right_trigger > 0 || gamepad2.left_trigger > 0
+                    || gamepad1.right_trigger > 0 || gamepad1.left_trigger > 0 || capping)) {
                 robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 robot.ridicareBrat.setPower(0);
-                ridicare_brat=false;
+                ridicare_brat = false;
                 o_ajuns = true;
             }
-                  //nivel 3 cu sensor
-            if(dI<=1.2 && !o_ajuns && ticks < 700 && gamepad1.left_trigger==0 && gamepad1.right_trigger == 0
-                && gamepad2.left_trigger==0 && gamepad2.right_trigger==0)
-            {ridicare_brat = true;
+            //nivel 3 cu sensor
+            if (dI <= 1.2 && !o_ajuns && ticks < 700 && gamepad1.left_trigger == 0 && gamepad1.right_trigger == 0
+                    && gamepad2.left_trigger == 0 && gamepad2.right_trigger == 0 && !capping) {
+                ridicare_brat = true;
                 robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 robot.ridicareBrat.setPower(1);
                 robot.ridicareBrat.setTargetPosition(700);
             }
-            if(dI>2.5)
+            if (dI > 2.5)
                 o_ajuns = false;
 
-            if(gamepad2.triangle)
-                power = 0.2;
+            //Ridicare Capping
+            if (capping) {
+                putereBrat = ticks == 0 ? 1 : (double) 12.0 / (Math.abs(ticks) * 1.0);
+                robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.ridicareBrat.setPower(putereBrat);
+
+            }
+            if (capping && (ticks >= 700 || gamepad2.right_trigger > 0 || gamepad2.left_trigger > 0
+                    || gamepad1.right_trigger > 0 || gamepad1.left_trigger > 0 || ridicare_brat)) {
+                robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                robot.ridicareBrat.setPower(0);
+                capping = false;
+            }
+
+            //Resetare cu touch sensor
+            if (gamepad1.dpad_up)
+                capping_ajustare = true;
+
+//cica capping
+//            if (!robot.touchSensor.isPressed() && capping_ajustare) {
+//                robot.ridicareBrat.setPower(-0.05);
+////                robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//            } else if (capping_ajustare && robot.touchSensor.isPressed()) {
+//                robot.ridicareBrat.setPower(0);
+//                capping_ajustare = false;
+//                capping = true;
+//                k++;
+//                robot.ridicareBrat.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+////                robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//            } else k = 0;
 
 //
 //            //resetare pozitii brat cu touch sensor.
@@ -281,10 +312,11 @@ public class Malboro extends LinearOpMode {
 //            }
 //         else k =0;
 
-         //restare tick-uri
-            if(gamepad2.square)
-            {robot.ridicareBrat.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-            robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);}
+            //restare tick-uri
+            if (gamepad2.square) {
+                robot.ridicareBrat.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+                robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            }
 
 //            if(robot.touchSensor.isPressed())
 //            {robot.ridicareBrat.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -318,34 +350,39 @@ public class Malboro extends LinearOpMode {
 //            }
 
             //carusel //da
-            if(gamepad2.right_bumper)
-                robot.rata.setPower(0.8);
+            if (gamepad2.right_bumper)
+                robot.rata.setPower(-0.8);
 //            else if(gamepad2.left_bumper)
 //                robot.rata.setPower(-0.1);
-            else {robot.rata.setPower(0);robot.rata.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);}
+            else {
+                robot.rata.setPower(0);
+                robot.rata.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+            }
 
             //rotatie brat
-            if(gamepad2.dpad_left) {
-                if(robot.PivotBrat.getPosition()<=0.77)
-                    robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()+0.03);
+            if (gamepad2.dpad_left) {
+                if (robot.PivotBrat.getPosition() <= 0.76)
+                    robot.PivotBrat.setPosition(robot.PivotBrat.getPosition() + 0.03);
             }
-            if(gamepad2.dpad_right){
-                if(robot.PivotBrat.getPosition()>=0.50)
-                    robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()-0.03);
+            if (gamepad2.dpad_right) {
+                if (robot.PivotBrat.getPosition() >= 0.52)
+                    robot.PivotBrat.setPosition(robot.PivotBrat.getPosition() - 0.03);
             }
 
-            if(gamepad2.right_stick_x < 0)
-                robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()+0.01);
-            if(gamepad2.right_stick_x > 0)
-                robot.PivotBrat.setPosition(robot.PivotBrat.getPosition()-0.01);
+            if (gamepad2.right_stick_x < 0)
+                robot.PivotBrat.setPosition(robot.PivotBrat.getPosition() + 0.01);
+            if (gamepad2.right_stick_x > 0)
+                robot.PivotBrat.setPosition(robot.PivotBrat.getPosition() - 0.01);
 
-            if(brat.time() == 2)
-            {gamepad1.rumble(100);gamepad2.rumble(100);}
+            if (brat.time() == 2) {
+                gamepad1.rumble(100);
+                gamepad2.rumble(100);
+            }
 
-            if(gamepad2.left_stick_button)
-                power=1;
-            if(gamepad2.right_stick_button)
-                power=0.65;
+            if (gamepad2.left_stick_button)
+                power = 1;
+            if (gamepad2.right_stick_button)
+                power = 0.2;
 
 
             /* CHESTII DE COD PE CARE POATE LE FOLOSIM*/
@@ -402,13 +439,14 @@ public class Malboro extends LinearOpMode {
 
 
             dashboardTelemetry.addData("ticks:", ticks);
+            dashboardTelemetry.addData("Ticks", putereBrat);
             dashboardTelemetry.addData("Color intake ", robot.culoareIntake.getNormalizedColors().toColor());
-            dashboardTelemetry.addData("Color intake: ","R %d G %d B %d A %d", robot.culoareIntake.red(), robot.culoareIntake.blue(), robot.culoareIntake.green(), robot.culoareIntake.alpha());
+            dashboardTelemetry.addData("Color intake: ", "R %d G %d B %d A %d", robot.culoareIntake.red(), robot.culoareIntake.blue(), robot.culoareIntake.green(), robot.culoareIntake.alpha());
             //dashboardTelemetry.addData("Color spate ", robot.culoareSpate.getNormalizedColors().toColor());
-            //dashboardTelemetry.addData("Color spate","R %d G %d B %d", robot.culoareSpate.red(), robot.culoareSpate.blue(), robot.culoareSpate.green(),robot.culoareSpate.alpha());
+            //dashboardTelemetry.addData("Color spate", "R %d G %d B %d", robot.culoareSpate.red(), robot.culoareSpate.blue(), robot.culoareSpate.green(), robot.culoareSpate.alpha());
             dashboardTelemetry.addData("x", robot.getPoseEstimate().getX());
             dashboardTelemetry.addData("y", robot.getPoseEstimate().getY());
-            dashboardTelemetry.addData("Pozitie robot",pozitie);
+            dashboardTelemetry.addData("Pozitie robot", pozitie);
             dashboardTelemetry.addData("distanta intake", robot.distantaIntake.getDistance(DistanceUnit.CM));
             dashboardTelemetry.addData("Brat mode", robot.ridicareBrat.getMode());
             //dashboardTelemetry.addData("Touch Sensor", robot.touchSensor.isPressed());
