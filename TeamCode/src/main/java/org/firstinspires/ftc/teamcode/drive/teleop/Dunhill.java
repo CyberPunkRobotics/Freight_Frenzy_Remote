@@ -271,6 +271,23 @@ public class Dunhill extends LinearOpMode {
             if (dI > 2.5)
                 o_ajuns = false;
 
+            if(capping){
+                if(robot.ridicareBrat.getCurrentPosition() >= 200)
+                    capping_power = 0.2;
+                if(robot.ridicareBrat.getCurrentPosition() >= 240)
+                    capping_power = 0.1;
+                robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.ridicareBrat.setPower(capping_power);
+                robot.ridicareBrat.setTargetPosition(270);
+            }
+            if(capping && (robot.ridicareBrat.getCurrentPosition() >= 270 || gamepad1.left_trigger > 0 || gamepad1.right_trigger > 0
+                    || gamepad2.left_trigger > 0 || gamepad2.right_trigger > 0)){
+                robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                robot.ridicareBrat.setPower(0);
+                capping = false;
+                capping_power = 0.3;
+            }
+
             //Ridicare Capping
             /*if (capping) {
                 putereBrat = ticks == 0 ? 1 : (double) 12.0 / (Math.abs(ticks) * 1.0);
@@ -292,7 +309,6 @@ public class Dunhill extends LinearOpMode {
             if(gamepad2.dpad_down){
                 capping = true;
             }
-
 //cica capping
 //            if (!robot.touchSensor.isPressed() && capping_ajustare) {
 //                robot.ridicareBrat.setPower(-0.05);
@@ -367,11 +383,11 @@ public class Dunhill extends LinearOpMode {
 
             //rotatie brat
             if (gamepad2.dpad_left) {
-                if (robot.PivotBrat.getPosition() <= 0.52)
+                if (robot.PivotBrat.getPosition() <= 0.48)
                     robot.PivotBrat.setPosition(robot.PivotBrat.getPosition() + 0.03);
             }
             if (gamepad2.dpad_right) {
-                if (robot.PivotBrat.getPosition() >= 0.22)
+                if (robot.PivotBrat.getPosition() >= 0.2)
                     robot.PivotBrat.setPosition(robot.PivotBrat.getPosition() - 0.03);
             }
 
@@ -457,6 +473,7 @@ public class Dunhill extends LinearOpMode {
             dashboardTelemetry.addData("Brat mode", robot.ridicareBrat.getMode());
             //dashboardTelemetry.addData("Touch Sensor", robot.touchSensor.isPressed());
             dashboardTelemetry.addData("PUTERE ROBOT", power);
+            dashboardTelemetry.addData("POZITIE BRAT: ",robot.ridicareBrat.getCurrentPosition());
 //            if(robot.culoareIntake.alpha() > 2000)
 //                dashboardTelemetry.addData("In intake: ","CUB");
 //            else if (robot.culoareIntake.alpha() < 2000 && dI < 2)

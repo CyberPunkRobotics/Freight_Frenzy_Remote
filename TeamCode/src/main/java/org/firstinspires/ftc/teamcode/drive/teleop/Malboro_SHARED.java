@@ -25,7 +25,9 @@ public class Malboro_SHARED extends LinearOpMode {
     boolean ridicare_brat = false;
     boolean capping_ajustare = false;
     boolean o_ajuns = false;
+    boolean capping = false;
 
+    double capping_power = 0.3;
     double power = 0.6;
     int k = 0;
 
@@ -244,14 +246,14 @@ public class Malboro_SHARED extends LinearOpMode {
                 ridicare_brat = true;
                 robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 robot.ridicareBrat.setPower(1);
-                robot.ridicareBrat.setTargetPosition(700);
+                robot.ridicareBrat.setTargetPosition(300);
             }
 
             if(gamepad2.triangle)
                 power = 0.2;
 
 
-            if (ridicare_brat && (ticks >= 700 || gamepad2.right_trigger > 0 || gamepad2.left_trigger > 0
+            if (ridicare_brat && (ticks >= 300 || gamepad2.right_trigger > 0 || gamepad2.left_trigger > 0
                     || gamepad1.right_trigger > 0 || gamepad1.left_trigger > 0 || capping)) {
                 robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 robot.ridicareBrat.setPower(0);
@@ -259,33 +261,50 @@ public class Malboro_SHARED extends LinearOpMode {
                 o_ajuns = true;
             }
             //nivel 3 cu sensor
-            if (dI <= 1.2 && !o_ajuns && ticks < 700 && gamepad1.left_trigger == 0 && gamepad1.right_trigger == 0
+            if (dI <= 1.2 && !o_ajuns && ticks < 300 && gamepad1.left_trigger == 0 && gamepad1.right_trigger == 0
                     && gamepad2.left_trigger == 0 && gamepad2.right_trigger == 0 && !capping) {
                 ridicare_brat = true;
                 robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 robot.ridicareBrat.setPower(1);
-                robot.ridicareBrat.setTargetPosition(700);
+                robot.ridicareBrat.setTargetPosition(300);
             }
             if (dI > 2.5)
                 o_ajuns = false;
 
-            //Ridicare Capping
-            if (capping) {
-                putereBrat = ticks == 0 ? 1 : (double) 12.0 / (Math.abs(ticks) * 1.0);
+            if(capping){
+                if(robot.ridicareBrat.getCurrentPosition() >= 200)
+                    capping_power = 0.2;
+                if(robot.ridicareBrat.getCurrentPosition() >= 240)
+                    capping_power = 0.1;
                 robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                robot.ridicareBrat.setPower(putereBrat);
-
+                robot.ridicareBrat.setPower(capping_power);
+                robot.ridicareBrat.setTargetPosition(270);
             }
-            if (capping && (ticks >= 700 || gamepad2.right_trigger > 0 || gamepad2.left_trigger > 0
-                    || gamepad1.right_trigger > 0 || gamepad1.left_trigger > 0 || ridicare_brat)) {
+            if(capping && (robot.ridicareBrat.getCurrentPosition() >= 270 || gamepad1.left_trigger > 0 || gamepad1.right_trigger > 0
+                    || gamepad2.left_trigger > 0 || gamepad2.right_trigger > 0)){
                 robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 robot.ridicareBrat.setPower(0);
                 capping = false;
+                capping_power = 0.3;
             }
 
+            //Ridicare Capping
+//            if (capping) {
+//                putereBrat = ticks == 0 ? 1 : (double) 12.0 / (Math.abs(ticks) * 1.0);
+//                robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//                robot.ridicareBrat.setPower(putereBrat);
+//
+//            }
+//            if (capping && (ticks >= 700 || gamepad2.right_trigger > 0 || gamepad2.left_trigger > 0
+//                    || gamepad1.right_trigger > 0 || gamepad1.left_trigger > 0 || ridicare_brat)) {
+//                robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//                robot.ridicareBrat.setPower(0);
+//                capping = false;
+//            }
+
             //Resetare cu touch sensor
-            if (gamepad1.dpad_up)
-                capping_ajustare = true;
+            if (gamepad2.dpad_down)
+                capping = true;
 
 //cica capping
 //            if (!robot.touchSensor.isPressed() && capping_ajustare) {
@@ -360,12 +379,12 @@ public class Malboro_SHARED extends LinearOpMode {
             }
 
             //rotatie brat
-            if (gamepad2.dpad_left) {
-                if (robot.PivotBrat.getPosition() <= 0.52)
+            if (gamepad2.dpad_right) {
+                if (robot.PivotBrat.getPosition() <= 0.49)
                     robot.PivotBrat.setPosition(robot.PivotBrat.getPosition() + 0.03);
             }
-            if (gamepad2.dpad_right) {
-                if (robot.PivotBrat.getPosition() >= 0.28)
+            if (gamepad2.dpad_left) {
+                if (robot.PivotBrat.getPosition() >= 0.2)
                     robot.PivotBrat.setPosition(robot.PivotBrat.getPosition() - 0.03);
             }
 
@@ -451,6 +470,7 @@ public class Malboro_SHARED extends LinearOpMode {
             dashboardTelemetry.addData("Brat mode", robot.ridicareBrat.getMode());
             //dashboardTelemetry.addData("Touch Sensor", robot.touchSensor.isPressed());
             dashboardTelemetry.addData("PUTERE ROBOT", power);
+            dashboardTelemetry.addData("POZITIE BRAT: ",robot.ridicareBrat.getCurrentPosition());
 //            if(robot.culoareIntake.alpha() > 2000)
 //                dashboardTelemetry.addData("In intake: ","CUB");
 //            else if (robot.culoareIntake.alpha() < 2000 && dI < 2)
