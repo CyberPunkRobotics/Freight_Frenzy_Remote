@@ -225,8 +225,8 @@ public class Malboro_SHARED extends LinearOpMode {
             double putere_brat = 1;
             bS = putere_brat * gamepad2.right_trigger;
             bJ = putere_brat * gamepad2.left_trigger;
-            bS2 = 0.3 * gamepad1.right_trigger;
-            bJ2 = 0.3 * gamepad1.left_trigger;
+            bS2 = 0.3 * gamepad1.left_trigger;
+            bJ2 = 0.3 * gamepad1.right_trigger;
 
             if (bS > 0)
                 robot.ridicareBrat.setPower(bS);
@@ -370,9 +370,9 @@ public class Malboro_SHARED extends LinearOpMode {
 
             //carusel //da
             if (gamepad2.right_bumper)
+                robot.rata.setPower(0.8);
+            else if(gamepad2.left_bumper)
                 robot.rata.setPower(-0.8);
-//            else if(gamepad2.left_bumper)
-//                robot.rata.setPower(-0.1);
             else {
                 robot.rata.setPower(0);
                 robot.rata.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
@@ -401,7 +401,7 @@ public class Malboro_SHARED extends LinearOpMode {
             if (gamepad2.left_stick_button)
                 power = 1;
             if (gamepad2.right_stick_button)
-                power = 0.2;
+                power = 0.6;
 
 
             /* CHESTII DE COD PE CARE POATE LE FOLOSIM*/
