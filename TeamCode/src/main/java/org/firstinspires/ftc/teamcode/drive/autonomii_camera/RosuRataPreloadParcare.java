@@ -557,7 +557,7 @@ public class RosuRataPreloadParcare extends LinearOpMode {
         currentPose = robot.getPoseEstimate();
 
         TrajectorySequence PuneRata = robot.trajectorySequenceBuilder(currentPose)
-                .lineToConstantHeading(new Vector2d(  -25.38146174877701, -46.56293767005846),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .lineToConstantHeading(new Vector2d(  -24.38146174877701, -46.56293767005846),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(20))
                 .addTemporalMarker(0.6,()->{robot.RidicareBrat(725,1);})
                 .addTemporalMarker(0.7,()->{robot.PivotBrat.setPosition(0.04);})

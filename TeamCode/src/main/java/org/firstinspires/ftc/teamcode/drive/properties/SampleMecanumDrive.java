@@ -19,6 +19,7 @@ import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAcceleration
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.lynx.LynxModule;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.hardware.rev.RevTouchSensor;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -109,6 +110,7 @@ public class SampleMecanumDrive extends MecanumDrive {
     //public DistanceSensor distantaDreapta;
     //public DistanceSensor distantaStanga;
     public DistanceSensor distantaIntake; //distanta senzor culoare
+    public ModernRoboticsI2cRangeSensor distantaFata;
 
     //senzori culoare
     //public RevColorSensorV3 culoareSpate = null;
@@ -165,6 +167,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         //DistantaDreapta = hardwareMap.get(DistanceSensor.class, "distantaDreapta");
         //distantaStanga = hardwareMap.get(DistanceSensor.class, "distantaStanga");
         distantaIntake=hardwareMap.get(DistanceSensor.class,"culoareIntake"); //senzor distanta de la senzor de culoare
+        distantaFata=hardwareMap.get(ModernRoboticsI2cRangeSensor.class,"distantaFata");
 
         //senzori culoare
         //culoareSpate=hardwareMap.get(RevColorSensorV3.class, "culoareSpate");

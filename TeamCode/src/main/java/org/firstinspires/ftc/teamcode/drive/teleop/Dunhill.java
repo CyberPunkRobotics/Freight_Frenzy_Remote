@@ -474,6 +474,11 @@ public class Dunhill extends LinearOpMode {
             //dashboardTelemetry.addData("Touch Sensor", robot.touchSensor.isPressed());
             dashboardTelemetry.addData("PUTERE ROBOT", power);
             dashboardTelemetry.addData("POZITIE BRAT: ",robot.ridicareBrat.getCurrentPosition());
+            dashboardTelemetry.addData("Optical", robot.distantaFata.rawOptical());
+            dashboardTelemetry.addData("Ultrasonic", robot.distantaFata.rawUltrasonic());
+            dashboardTelemetry.addData("cm optical", robot.distantaFata.cmOptical());
+            dashboardTelemetry.addData("cm ultrasonic", robot.distantaFata.cmUltrasonic());
+            dashboardTelemetry.addData("cm ultrasonic", robot.distantaFata.getDistance(DistanceUnit.CM));
 //            if(robot.culoareIntake.alpha() > 2000)
 //                dashboardTelemetry.addData("In intake: ","CUB");
 //            else if (robot.culoareIntake.alpha() < 2000 && dI < 2)
