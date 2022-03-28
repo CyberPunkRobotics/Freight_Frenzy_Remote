@@ -120,7 +120,6 @@ public class RosuRataPreloadParcare extends LinearOpMode {
                 .addTemporalMarker(()->{robot.rata.setPower(0);})
                 .lineToConstantHeading(new Vector2d(  -27.98146174877701, -41.06293767005846),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(30))
-                .addTemporalMarker(0, ()->{robot.RidicareBrat(220,1); })
                 .addTemporalMarker(0.5, ()->{ robot.PivotBrat.setPosition(0.53); })
                 .addTemporalMarker(0.6, ()->{ robot.PivotBrat.setPosition(0.56); })
                 .addTemporalMarker(0.7, ()->{ robot.PivotBrat.setPosition(0.59); })
