@@ -137,7 +137,7 @@ public class RosuRataPreloadParcare extends LinearOpMode {
                 .addTemporalMarker(3.5, ()->{ robot.PivotBrat.setPosition(0.55); })
                 .addTemporalMarker(3.6, ()->{ robot.PivotBrat.setPosition(0.53); })
                 .addTemporalMarker(3.7, ()->{ robot.PivotBrat.setPosition(0.5);})
-                .addTemporalMarker(4,()->{robot.RidicareBrat(0,0.4);})
+                .addTemporalMarker(4,()->{robot.RidicareBrat(10,0.4);})
                 .waitSeconds(0.1)
                 .addTemporalMarker(3.7,()->{robot.PivotBrat.setPosition(0.48);})
                 .addTemporalMarker(3.8,()->{robot.PivotBrat.setPosition(0.46);})
@@ -163,8 +163,8 @@ public class RosuRataPreloadParcare extends LinearOpMode {
                 .addTemporalMarker(5.8,()->{robot.PivotBrat.setPosition(0.06);})
                 .addTemporalMarker(5.9,()->{robot.PivotBrat.setPosition(0.04);})
                 .addTemporalMarker(6,()->{robot.PivotBrat.setPosition(0.02);})
-                .addTemporalMarker(6.1,()->{robot.PivotBrat.setPosition(0.01);})
-                .lineToConstantHeading(new Vector2d(  -27.98146174877701, -68.0442651728134),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .addTemporalMarker(6.1,()->{robot.PivotBrat.setPosition(0.0);})
+                .lineToConstantHeading(new Vector2d(  -27.98146174877701, -64.0442651728134),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(2))
                 .build(); //daca nu merge cu nationala facem battle bots in parcu teilor #Iftime Mihail Kogalniceanu !!!nu se sterge
 
@@ -174,7 +174,7 @@ public class RosuRataPreloadParcare extends LinearOpMode {
         currentPose = robot.getPoseEstimate();
 
         TrajectorySequence IaRata = robot.trajectorySequenceBuilder(currentPose)
-                .back(22,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .back(25,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(5))
                 .addTemporalMarker(0,()->{robot.intake.setPower(0.99);})
                 .build();
@@ -324,7 +324,7 @@ public class RosuRataPreloadParcare extends LinearOpMode {
                 .addTemporalMarker(3.5, ()->{ robot.PivotBrat.setPosition(0.55); })
                 .addTemporalMarker(3.6, ()->{ robot.PivotBrat.setPosition(0.53); })
                 .addTemporalMarker(3.7, ()->{ robot.PivotBrat.setPosition(0.5);})
-                .addTemporalMarker(3.3,()->{robot.RidicareBrat(0,0.4);})
+                .addTemporalMarker(3.3,()->{robot.RidicareBrat(10,0.4);})
                 .waitSeconds(0.1)
                 .addTemporalMarker(3.7,()->{robot.PivotBrat.setPosition(0.48);})
                 .addTemporalMarker(3.8,()->{robot.PivotBrat.setPosition(0.46);})
@@ -350,8 +350,8 @@ public class RosuRataPreloadParcare extends LinearOpMode {
                 .addTemporalMarker(5.8,()->{robot.PivotBrat.setPosition(0.06);})
                 .addTemporalMarker(5.9,()->{robot.PivotBrat.setPosition(0.04);})
                 .addTemporalMarker(6,()->{robot.PivotBrat.setPosition(0.02);})
-                .addTemporalMarker(6.1,()->{robot.PivotBrat.setPosition(0.01);})
-                .lineToConstantHeading(new Vector2d(  -27.98146174877701, -68.0442651728134),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .addTemporalMarker(6.1,()->{robot.PivotBrat.setPosition(0.0);})
+                .lineToConstantHeading(new Vector2d(  -27.98146174877701, -64.0442651728134),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(2))
                 .build(); //daca nu merge cu nationala facem battle bots in parcu teilor #Iftime Mihail Kogalniceanu !!!nu se sterge
 
@@ -361,7 +361,7 @@ public class RosuRataPreloadParcare extends LinearOpMode {
         currentPose = robot.getPoseEstimate();
 
         TrajectorySequence IaRata = robot.trajectorySequenceBuilder(currentPose)
-                .back(22,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .back(25,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(5))
                 .addTemporalMarker(0,()->{robot.intake.setPower(0.99);})
                 .build();
@@ -509,7 +509,7 @@ public class RosuRataPreloadParcare extends LinearOpMode {
                 .addTemporalMarker(3.5, ()->{ robot.PivotBrat.setPosition(0.55); })
                 .addTemporalMarker(3.6, ()->{ robot.PivotBrat.setPosition(0.53); })
                 .addTemporalMarker(3.7, ()->{ robot.PivotBrat.setPosition(0.5);})
-                .addTemporalMarker(3.3,()->{robot.RidicareBrat(0,0.4);})
+                .addTemporalMarker(3.3,()->{robot.RidicareBrat(10,0.4);})
                 .waitSeconds(0.1)
                 .addTemporalMarker(3.7,()->{robot.PivotBrat.setPosition(0.48);})
                 .addTemporalMarker(3.8,()->{robot.PivotBrat.setPosition(0.46);})
@@ -535,8 +535,8 @@ public class RosuRataPreloadParcare extends LinearOpMode {
                 .addTemporalMarker(5.8,()->{robot.PivotBrat.setPosition(0.06);})
                 .addTemporalMarker(5.9,()->{robot.PivotBrat.setPosition(0.04);})
                 .addTemporalMarker(6,()->{robot.PivotBrat.setPosition(0.02);})
-                .addTemporalMarker(6.1,()->{robot.PivotBrat.setPosition(0.01);})
-                .lineToConstantHeading(new Vector2d(  -27.98146174877701, -68.0442651728134),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .addTemporalMarker(6.1,()->{robot.PivotBrat.setPosition(0.0);})
+                .lineToConstantHeading(new Vector2d(  -27.98146174877701, -64.0442651728134),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(2))
                 .build(); //daca nu merge cu nationala facem battle bots in parcu teilor #Iftime Mihail Kogalniceanu !!!nu se sterge
 
@@ -546,7 +546,7 @@ public class RosuRataPreloadParcare extends LinearOpMode {
         currentPose = robot.getPoseEstimate();
 
         TrajectorySequence IaRata = robot.trajectorySequenceBuilder(currentPose)
-                .back(22,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .back(25,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(5))
                 .addTemporalMarker(0,()->{robot.intake.setPower(0.99);})
                 .build();
