@@ -1,30 +1,19 @@
-package org.firstinspires.ftc.teamcode.drive.autonomii_camera;
-
-import android.media.tv.TvTrackInfo;
-import android.net.vcn.VcnConfig;
+package org.firstinspires.ftc.teamcode.drive.autonomii_camera_rosu;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
-import com.acmerobotics.roadrunner.trajectory.Trajectory;
-import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAccelerationConstraint;
-import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.drive.properties.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
-import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
-
-import java.sql.Time;
-import java.util.concurrent.TimeUnit;
 
 @Autonomous(name="Rosu Rata", group="Auto")
 public class RataRosu extends LinearOpMode {
@@ -51,6 +40,7 @@ public class RataRosu extends LinearOpMode {
 
         robot.ridicareBrat.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        robot.rata.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
@@ -97,16 +87,18 @@ public class RataRosu extends LinearOpMode {
         robot.ridicareBrat.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.ridicareBrat.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        sleep(2000);
+
         robot.updatePoseEstimate();
         Pose2d currentPose = robot.getPoseEstimate();
 
         TrajectorySequence RotireRata = robot.trajectorySequenceBuilder(currentPose)
-                .addTemporalMarker(0,()->{robot.RidicareBrat(220,0.2);})
+                .addTemporalMarker(0,()->{robot.RidicareBrat(216,0.2);})
                 .lineTo(new Vector2d(-62.91550487865194, -61.5),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(25))
-                .addTemporalMarker(1, ()->{robot.rata.setPower(0.55);}) //0.55 0.6
-                .waitSeconds(2.3)
-                .addTemporalMarker(3.3,()->{robot.rata.setPower(0);})
+                .addTemporalMarker(1, ()->{robot.rata.setPower(0.5);}) //0.55 0.6
+                .waitSeconds(2.8)
+                .addTemporalMarker(3.8,()->{robot.rata.setPower(0);})
 //                .forward(10)
 //                .strafeRight(4)
                 .build();
@@ -118,7 +110,7 @@ public class RataRosu extends LinearOpMode {
 
         TrajectorySequence PuneCubPeNivel = robot.trajectorySequenceBuilder(currentPose)
                 .addTemporalMarker(()->{robot.rata.setPower(0);})
-                .lineToConstantHeading(new Vector2d(  -27.98146174877701, -41.06293767005846),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .lineToConstantHeading(new Vector2d(  -26.28146174877701, -43.06293767005846),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(30))
                 .addTemporalMarker(0.5, ()->{ robot.PivotBrat.setPosition(0.53); })
                 .addTemporalMarker(0.6, ()->{ robot.PivotBrat.setPosition(0.56); })
@@ -173,9 +165,10 @@ public class RataRosu extends LinearOpMode {
         currentPose = robot.getPoseEstimate();
 
         TrajectorySequence IaRata = robot.trajectorySequenceBuilder(currentPose)
-                .back(25,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .back(23,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(5))
                 .addTemporalMarker(0,()->{robot.intake.setPower(0.99);})
+                .waitSeconds(0.5)//am scazut din distanta pe care o face in spate din cauza bratului si i-am dat un wait
                 .build();
 
         robot.followTrajectorySequence(IaRata);
@@ -184,7 +177,7 @@ public class RataRosu extends LinearOpMode {
         currentPose = robot.getPoseEstimate();
 
         TrajectorySequence PuneRata = robot.trajectorySequenceBuilder(currentPose)
-                .lineToConstantHeading(new Vector2d(  -25.38146174877701, -46.56293767005846),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .lineToConstantHeading(new Vector2d(  -25.08146174877701, -47.06293767005846),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(20))
                 .addTemporalMarker(0.6,()->{robot.RidicareBrat(725,1);})
                 .addTemporalMarker(0.7,()->{robot.PivotBrat.setPosition(0.04);})
@@ -217,12 +210,13 @@ public class RataRosu extends LinearOpMode {
         robot.RidicareBrat(200,0.8);
 
         TrajectorySequence Parcheaza = robot.trajectorySequenceBuilder(currentPose)
+                .strafeRight(2)
+                .splineToConstantHeading(new Vector2d(-63.505756564194397,-41.00075310738899),170,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                        SampleMecanumDrive.getAccelerationConstraint(35))
+                .back(2)
+                .strafeLeft(5)
 //                .strafeRight(2)
-//                .splineToConstantHeading(new Vector2d(-63.505756564194397,-41.00075310738899),170,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
-//                        SampleMecanumDrive.getAccelerationConstraint(35))
-//                .back(2)
-                .strafeRight(5)
-                .forward(70)
+//                .forward(70)
                 .addTemporalMarker(()->{robot.intake.setPower(0);})
                 .addTemporalMarker(1.1, ()->{ robot.PivotBrat.setPosition(0.63);robot.intake.setPower(0); })
                 .addTemporalMarker(1.2, ()->{ robot.PivotBrat.setPosition(0.61); })
@@ -282,6 +276,8 @@ public class RataRosu extends LinearOpMode {
 
     }
 
+    //patrick sebi<3 cata leon sandel
+
     private void NivelDoi() {
 
         robot.ridicareBrat.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -290,13 +286,15 @@ public class RataRosu extends LinearOpMode {
         robot.updatePoseEstimate();
         Pose2d currentPose = robot.getPoseEstimate();
 
+        sleep(2000);
+
         TrajectorySequence RotireRata = robot.trajectorySequenceBuilder(currentPose)
-                .addTemporalMarker(0,()->{robot.RidicareBrat(480,0.2);})
+                .addTemporalMarker(0,()->{robot.RidicareBrat(473,0.2);})
                 .lineTo(new Vector2d(-62.91550487865194, -61.5),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(25))
-                .addTemporalMarker(1, ()->{robot.rata.setPower(0.55);}) //0.55 0.6
-                .waitSeconds(2.3)
-                .addTemporalMarker(3.3,()->{robot.rata.setPower(0);})
+                .addTemporalMarker(1, ()->{robot.rata.setPower(0.5);}) //0.55 0.6
+                .waitSeconds(2.8)
+                .addTemporalMarker(3.8,()->{robot.rata.setPower(0);})
 //                .forward(10)
 //                .strafeRight(4)
                 .build();
@@ -310,7 +308,7 @@ public class RataRosu extends LinearOpMode {
                 .addTemporalMarker(()->{robot.rata.setPower(0);})
                 .lineToConstantHeading(new Vector2d(  -27.98146174877701, -44.06293767005846),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(30))
-                .addTemporalMarker(0, ()->{robot.RidicareBrat(480,1); })
+                .addTemporalMarker(0, ()->{robot.RidicareBrat(473,1); })
                 .addTemporalMarker(0.5, ()->{ robot.PivotBrat.setPosition(0.53); })
                 .addTemporalMarker(0.6, ()->{ robot.PivotBrat.setPosition(0.56); })
                 .addTemporalMarker(0.7, ()->{ robot.PivotBrat.setPosition(0.59); })
@@ -364,9 +362,10 @@ public class RataRosu extends LinearOpMode {
         currentPose = robot.getPoseEstimate();
 
         TrajectorySequence IaRata = robot.trajectorySequenceBuilder(currentPose)
-                .back(25,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .back(22,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(5))
                 .addTemporalMarker(0,()->{robot.intake.setPower(0.99);})
+                .waitSeconds(0.5)
                 .build();
 
         robot.followTrajectorySequence(IaRata);
@@ -375,7 +374,7 @@ public class RataRosu extends LinearOpMode {
         currentPose = robot.getPoseEstimate();
 
         TrajectorySequence PuneRata = robot.trajectorySequenceBuilder(currentPose)
-                .lineToConstantHeading(new Vector2d(-25.38146174877701, -46.56293767005846),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .lineToConstantHeading(new Vector2d(-25.08146174877701, -47.06293767005846),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(20))
                 .addTemporalMarker(0.6,()->{robot.RidicareBrat(725,1);})
                 .addTemporalMarker(0.7,()->{robot.PivotBrat.setPosition(0.04);})
@@ -408,12 +407,12 @@ public class RataRosu extends LinearOpMode {
         robot.RidicareBrat(200,0.8);
 
         TrajectorySequence Parcheaza = robot.trajectorySequenceBuilder(currentPose)
+                .strafeRight(2)
+                .splineToConstantHeading(new Vector2d(-63.505756564194397,-41.00075310738899),170,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                        SampleMecanumDrive.getAccelerationConstraint(35))
+                .back(2)
 //                .strafeRight(2)
-//                .splineToConstantHeading(new Vector2d(-63.505756564194397,-41.00075310738899),170,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
-//                        SampleMecanumDrive.getAccelerationConstraint(35))
-//                .back(2)
-                .strafeRight(5)
-                .forward(70)
+//                .forward(70)
                 .addTemporalMarker(()->{robot.intake.setPower(0);})
                 .addTemporalMarker(1.1, ()->{ robot.PivotBrat.setPosition(0.63);robot.intake.setPower(0); })
                 .addTemporalMarker(1.2, ()->{ robot.PivotBrat.setPosition(0.61); })
@@ -479,13 +478,15 @@ public class RataRosu extends LinearOpMode {
         robot.updatePoseEstimate();
         Pose2d currentPose = robot.getPoseEstimate();
 
+        sleep(2000);
+
         TrajectorySequence RotireRata = robot.trajectorySequenceBuilder(currentPose)
                 .addTemporalMarker(0,()->{robot.RidicareBrat(700,0.2);})
                 .lineTo(new Vector2d(-62.91550487865194, -61.5),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(25))
-                .addTemporalMarker(1, ()->{robot.rata.setPower(0.55);}) //0.55 0.6
-                .waitSeconds(2.3)
-                .addTemporalMarker(3.3,()->{robot.rata.setPower(0);})
+                .addTemporalMarker(1, ()->{robot.rata.setPower(0.5);}) //0.55 0.6
+                .waitSeconds(2.8)
+                .addTemporalMarker(3.8,()->{robot.rata.setPower(0);})
 //                .forward(10)
 //                .strafeRight(4)
                 .build();
@@ -553,9 +554,10 @@ public class RataRosu extends LinearOpMode {
         currentPose = robot.getPoseEstimate();
 
         TrajectorySequence IaRata = robot.trajectorySequenceBuilder(currentPose)
-                .back(25,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .back(22,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(5))
                 .addTemporalMarker(0,()->{robot.intake.setPower(0.99);})
+                .waitSeconds(0.5)
                 .build();
 
         robot.followTrajectorySequence(IaRata);
@@ -564,7 +566,7 @@ public class RataRosu extends LinearOpMode {
         currentPose = robot.getPoseEstimate();
 
         TrajectorySequence PuneRata = robot.trajectorySequenceBuilder(currentPose)
-                .lineToConstantHeading(new Vector2d(  -24.38146174877701, -46.56293767005846),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .lineToConstantHeading(new Vector2d( -25.08146174877701, -47.06293767005846),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(20))
                 .addTemporalMarker(0.6,()->{robot.RidicareBrat(725,1);})
                 .addTemporalMarker(0.7,()->{robot.PivotBrat.setPosition(0.04);})
@@ -597,12 +599,13 @@ public class RataRosu extends LinearOpMode {
         robot.RidicareBrat(200,0.8);
 
         TrajectorySequence Parcheaza = robot.trajectorySequenceBuilder(currentPose)
+                .strafeRight(2)
+                .splineToConstantHeading(new Vector2d(-63.505756564194397,-41.00075310738899),170,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                        SampleMecanumDrive.getAccelerationConstraint(35))
+                .back(2)
+                .strafeLeft(5)
 //                .strafeRight(2)
-//                .splineToConstantHeading(new Vector2d(-63.505756564194397,-41.00075310738899),170,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
-//                        SampleMecanumDrive.getAccelerationConstraint(35))
-//                .back(2)
-                .strafeRight(5)
-                .forward(70)
+//                .forward(70)
                 .addTemporalMarker(()->{robot.intake.setPower(0);})
                 .addTemporalMarker(1.1, ()->{ robot.PivotBrat.setPosition(0.63);robot.intake.setPower(0); })
                 .addTemporalMarker(1.2, ()->{ robot.PivotBrat.setPosition(0.61); })

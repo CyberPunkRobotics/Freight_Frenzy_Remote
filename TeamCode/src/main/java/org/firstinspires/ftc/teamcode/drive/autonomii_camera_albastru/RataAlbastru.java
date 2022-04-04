@@ -1,31 +1,19 @@
 package org.firstinspires.ftc.teamcode.drive.autonomii_camera_albastru;
 
-import android.media.tv.TvTrackInfo;
-import android.net.vcn.VcnConfig;
-
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
-import com.acmerobotics.roadrunner.trajectory.Trajectory;
-import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAccelerationConstraint;
-import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.teamcode.drive.autonomii_camera.DetectarePozitie;
 import org.firstinspires.ftc.teamcode.drive.properties.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
-import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
-
-import java.sql.Time;
-import java.util.concurrent.TimeUnit;
 
 @Autonomous(name="Albastru Rata", group="Auto")
 public class RataAlbastru extends LinearOpMode {
@@ -105,9 +93,9 @@ public class RataAlbastru extends LinearOpMode {
                 .addTemporalMarker(0,()->{robot.RidicareBrat(217,0.2);})
                 .lineTo(new Vector2d(-62.91550487865194, 61.5),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(25))
-                .addTemporalMarker(1, ()->{robot.rata.setPower(-0.55);}) //0.55 0.6
-                .waitSeconds(2.3)
-                .addTemporalMarker(3.3,()->{robot.rata.setPower(0);})
+                .addTemporalMarker(1, ()->{robot.rata.setPower(-0.5);}) //0.55 0.6
+                .waitSeconds(2.8)
+                .addTemporalMarker(3.8,()->{robot.rata.setPower(0);})
 //                .forward(10)
 //                .strafeRight(4)
                 .build();
@@ -119,7 +107,7 @@ public class RataAlbastru extends LinearOpMode {
 
         TrajectorySequence PuneCubPeNivel = robot.trajectorySequenceBuilder(currentPose)
                 .addTemporalMarker(()->{robot.rata.setPower(0);})
-                .lineToConstantHeading(new Vector2d(  -27.98146174877701, 41.06293767005846),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .lineToConstantHeading(new Vector2d(  -27.98146174877701, 41.76293767005846),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(30))
                 .addTemporalMarker(0.5, ()->{ robot.PivotBrat.setPosition(0.47); })
                 .addTemporalMarker(0.6, ()->{ robot.PivotBrat.setPosition(0.44); })
@@ -137,7 +125,7 @@ public class RataAlbastru extends LinearOpMode {
                 .addTemporalMarker(3.5, ()->{ robot.PivotBrat.setPosition(0.46); })
                 .addTemporalMarker(3.6, ()->{ robot.PivotBrat.setPosition(0.48); })
                 .addTemporalMarker(3.7, ()->{ robot.PivotBrat.setPosition(0.5);})
-                .addTemporalMarker(4,()->{robot.RidicareBrat(2,0.4);})
+                .addTemporalMarker(4,()->{robot.RidicareBrat(0,0.4);})
                 .waitSeconds(0.1)
                 .addTemporalMarker(3.7,()->{robot.PivotBrat.setPosition(0.52);})
                 .addTemporalMarker(3.8,()->{robot.PivotBrat.setPosition(0.54);})
@@ -164,7 +152,7 @@ public class RataAlbastru extends LinearOpMode {
                 .addTemporalMarker(5.9,()->{robot.PivotBrat.setPosition(0.96);})
                 .addTemporalMarker(6,()->{robot.PivotBrat.setPosition(0.98);})
                 .addTemporalMarker(6.1,()->{robot.PivotBrat.setPosition(1);})
-                .lineToConstantHeading(new Vector2d(  -27.98146174877701, 61.2442651728134),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .lineToConstantHeading(new Vector2d(  -27.98146174877701, 62.9442651728134),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(2))
                 .build(); //daca nu merge cu nationala facem battle bots in parcu teilor #Iftime Mihail Kogalniceanu !!!nu se sterge
 
@@ -220,11 +208,11 @@ public class RataAlbastru extends LinearOpMode {
         //if(robot.distantaFata.g)
 
         TrajectorySequence Parcheaza = robot.trajectorySequenceBuilder(currentPose)
-//                .strafeLeft(2)
+                .strafeLeft(2)
 //                .splineToConstantHeading(new Vector2d(-63.505756564194397,39.00075310738899),170,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
 //                        SampleMecanumDrive.getAccelerationConstraint(35))
+//                .strafeRight(5)
 //                .back(2)
-                .strafeLeft(5)
                 .forward(70)
                 .addTemporalMarker(()->{robot.intake.setPower(0);})
                 .addTemporalMarker(1.1, ()->{ robot.PivotBrat.setPosition(0.34);robot.intake.setPower(0); })
@@ -293,11 +281,11 @@ public class RataAlbastru extends LinearOpMode {
 
         TrajectorySequence RotireRata = robot.trajectorySequenceBuilder(currentPose)
                 .addTemporalMarker(0,()->{robot.RidicareBrat(480,0.2);})
-                .lineTo(new Vector2d(-62.91550487865194, -61.5),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .lineTo(new Vector2d(-62.91550487865194, 61.5),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(25))
-                .addTemporalMarker(1, ()->{robot.rata.setPower(-0.55);}) //0.55 0.6
-                .waitSeconds(2.3)
-                .addTemporalMarker(3.3,()->{robot.rata.setPower(0);})
+                .addTemporalMarker(1, ()->{robot.rata.setPower(-0.5);}) //0.55 0.6
+                .waitSeconds(2.8)
+                .addTemporalMarker(3.8,()->{robot.rata.setPower(0);})
 //                .forward(10)
 //                .strafeRight(4)
                 .build();
@@ -309,9 +297,9 @@ public class RataAlbastru extends LinearOpMode {
 
         TrajectorySequence PuneCubPeNivel = robot.trajectorySequenceBuilder(currentPose)
                 .addTemporalMarker(()->{robot.rata.setPower(0);})
-                .lineToConstantHeading(new Vector2d(  -27.98146174877701, 41.06293767005846),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .lineToConstantHeading(new Vector2d(  -27.98146174877701, 41.76293767005846),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(30))
-                .addTemporalMarker(()->{robot.RidicareBrat(480,1);})
+                .addTemporalMarker(()->{robot.RidicareBrat(473,1);})
                 .addTemporalMarker(0.5, ()->{ robot.PivotBrat.setPosition(0.47); })
                 .addTemporalMarker(0.6, ()->{ robot.PivotBrat.setPosition(0.44); })
                 .addTemporalMarker(0.7, ()->{ robot.PivotBrat.setPosition(0.42); })
@@ -328,7 +316,7 @@ public class RataAlbastru extends LinearOpMode {
                 .addTemporalMarker(3.5, ()->{ robot.PivotBrat.setPosition(0.46); })
                 .addTemporalMarker(3.6, ()->{ robot.PivotBrat.setPosition(0.48); })
                 .addTemporalMarker(3.7, ()->{ robot.PivotBrat.setPosition(0.5);})
-                .addTemporalMarker(4,()->{robot.RidicareBrat(2,0.4);})
+                .addTemporalMarker(4,()->{robot.RidicareBrat(0,0.4);})
                 .waitSeconds(0.1)
                 .addTemporalMarker(3.7,()->{robot.PivotBrat.setPosition(0.52);})
                 .addTemporalMarker(3.8,()->{robot.PivotBrat.setPosition(0.54);})
@@ -355,7 +343,7 @@ public class RataAlbastru extends LinearOpMode {
                 .addTemporalMarker(5.9,()->{robot.PivotBrat.setPosition(0.96);})
                 .addTemporalMarker(6,()->{robot.PivotBrat.setPosition(0.98);})
                 .addTemporalMarker(6.1,()->{robot.PivotBrat.setPosition(1);})
-                .lineToConstantHeading(new Vector2d(  -27.98146174877701, 61.2442651728134),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .lineToConstantHeading(new Vector2d(  -27.98146174877701, 62.9442651728134),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(2))
                 .build(); //daca nu merge cu nationala facem battle bots in parcu teilor #Iftime Mihail Kogalniceanu !!!nu se sterge
 
@@ -411,11 +399,11 @@ public class RataAlbastru extends LinearOpMode {
         //if(robot.distantaFata.g)
 
         TrajectorySequence Parcheaza = robot.trajectorySequenceBuilder(currentPose)
-//                .strafeLeft(2)
+                .strafeLeft(2)
 //                .splineToConstantHeading(new Vector2d(-63.505756564194397,39.00075310738899),170,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
 //                        SampleMecanumDrive.getAccelerationConstraint(35))
 //                .back(2)
-                .strafeLeft(5)
+           //     .strafeLeft(5)
                 .forward(70)
                 .addTemporalMarker(()->{robot.intake.setPower(0);})
                 .addTemporalMarker(1.1, ()->{ robot.PivotBrat.setPosition(0.34);robot.intake.setPower(0); })
@@ -482,11 +470,11 @@ public class RataAlbastru extends LinearOpMode {
 
         TrajectorySequence RotireRata = robot.trajectorySequenceBuilder(currentPose)
                 .addTemporalMarker(0,()->{robot.RidicareBrat(700,0.2);})
-                .lineTo(new Vector2d(-62.91550487865194, -61.5),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .lineTo(new Vector2d(-62.91550487865194, 61.5),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(25))
-                .addTemporalMarker(1, ()->{robot.rata.setPower(0.55);}) //0.55 0.6
-                .waitSeconds(2.3)
-                .addTemporalMarker(3.3,()->{robot.rata.setPower(0);})
+                .addTemporalMarker(1, ()->{robot.rata.setPower(0.5);}) //0.55 0.6
+                .waitSeconds(2.8)
+                .addTemporalMarker(3.8,()->{robot.rata.setPower(0);})
 //                .forward(10)
 //                .strafeRight(4)
                 .build();
@@ -498,7 +486,7 @@ public class RataAlbastru extends LinearOpMode {
 
         TrajectorySequence PuneCubPeNivel = robot.trajectorySequenceBuilder(currentPose)
                 .addTemporalMarker(()->{robot.rata.setPower(0);})
-                .lineToConstantHeading(new Vector2d(  -27.98146174877701, 41.06293767005846),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .lineToConstantHeading(new Vector2d(  -27.98146174877701, 41.76293767005846),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(30))
                 .addTemporalMarker(()->{robot.RidicareBrat(750,1);})
                 .addTemporalMarker(0.5, ()->{ robot.PivotBrat.setPosition(0.47); })
@@ -517,7 +505,7 @@ public class RataAlbastru extends LinearOpMode {
                 .addTemporalMarker(3.5, ()->{ robot.PivotBrat.setPosition(0.46); })
                 .addTemporalMarker(3.6, ()->{ robot.PivotBrat.setPosition(0.48); })
                 .addTemporalMarker(3.7, ()->{ robot.PivotBrat.setPosition(0.5);})
-                .addTemporalMarker(4,()->{robot.RidicareBrat(2,0.4);})
+                .addTemporalMarker(4,()->{robot.RidicareBrat(0,0.4);})
                 .waitSeconds(0.1)
                 .addTemporalMarker(3.7,()->{robot.PivotBrat.setPosition(0.52);})
                 .addTemporalMarker(3.8,()->{robot.PivotBrat.setPosition(0.54);})
@@ -544,7 +532,7 @@ public class RataAlbastru extends LinearOpMode {
                 .addTemporalMarker(5.9,()->{robot.PivotBrat.setPosition(0.96);})
                 .addTemporalMarker(6,()->{robot.PivotBrat.setPosition(0.98);})
                 .addTemporalMarker(6.1,()->{robot.PivotBrat.setPosition(1);})
-                .lineToConstantHeading(new Vector2d(  -27.98146174877701, 61.2442651728134),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .lineToConstantHeading(new Vector2d(  -27.98146174877701, 62.9442651728134),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(2))
                 .build(); //daca nu merge cu nationala facem battle bots in parcu teilor #Iftime Mihail Kogalniceanu !!!nu se sterge
 
@@ -600,11 +588,11 @@ public class RataAlbastru extends LinearOpMode {
         //if(robot.distantaFata.g)
 
         TrajectorySequence Parcheaza = robot.trajectorySequenceBuilder(currentPose)
-//                .strafeLeft(2)
+                .strafeLeft(2)
 //                .splineToConstantHeading(new Vector2d(-63.505756564194397,39.00075310738899),170,SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
 //                        SampleMecanumDrive.getAccelerationConstraint(35))
 //                .back(2)
-                .strafeLeft(5)
+//                .strafeLeft(5)
                 .forward(70)
                 .addTemporalMarker(()->{robot.intake.setPower(0);})
                 .addTemporalMarker(1.1, ()->{ robot.PivotBrat.setPosition(0.34);robot.intake.setPower(0); })

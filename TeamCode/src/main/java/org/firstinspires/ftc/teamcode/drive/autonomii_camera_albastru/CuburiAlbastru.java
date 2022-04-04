@@ -10,7 +10,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.teamcode.drive.autonomii_camera.DetectarePozitie;
 import org.firstinspires.ftc.teamcode.drive.properties.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.openftc.easyopencv.OpenCvCamera;
@@ -93,9 +92,9 @@ public class CuburiAlbastru extends LinearOpMode {
         currentPose = robot.getPoseEstimate();
 
         TrajectorySequence punePreload = robot.trajectorySequenceBuilder(currentPose)
-                .lineToConstantHeading(new Vector2d(-0.6619354985385653,45.34777575882209),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .lineToConstantHeading(new Vector2d(-1.6619354985385653,46.34777575882209),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(49))
-                .addTemporalMarker(0, ()->{robot.RidicareBrat(198,1);})
+                .addTemporalMarker(0, ()->{robot.RidicareBrat(193,1);})
                 .addTemporalMarker(0.5, ()->{ robot.PivotBrat.setPosition(0.47); })
                 .addTemporalMarker(0.6, ()->{ robot.PivotBrat.setPosition(0.44); })
                 .addTemporalMarker(0.7, ()->{ robot.PivotBrat.setPosition(0.41); })
@@ -132,7 +131,7 @@ public class CuburiAlbastru extends LinearOpMode {
                 .addTemporalMarker(1.3,()->{robot.PivotBrat.setPosition(0.44);})
                 .addTemporalMarker(1.4,()->{robot.PivotBrat.setPosition(0.46);})
                 .addTemporalMarker(1.5,()->{robot.PivotBrat.setPosition(0.48);})
-                .addTemporalMarker(1.6,()->{robot.PivotBrat.setPosition(0.50);robot.RidicareBrat(-5,0.7);})
+                .addTemporalMarker(1.6,()->{robot.PivotBrat.setPosition(0.50);robot.RidicareBrat(0,0.7);})
                 .waitSeconds(0.7)
                 .strafeLeft(8)
                 .splineToConstantHeading(new Vector2d(37.79158659407203, 62.58922924676717),0 , SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
@@ -226,7 +225,7 @@ public class CuburiAlbastru extends LinearOpMode {
 
         TrajectorySequence mergeInWareHouseDupa1 = robot.trajectorySequenceBuilder(currentPose)
                 .addTemporalMarker(0  , ()->{ robot.intake.setPower(-0.99);})
-                .addTemporalMarker(0.6  ,()->{robot.RidicareBrat(-5,0.7);})
+                .addTemporalMarker(0.6  ,()->{robot.RidicareBrat(-5,1);})
                 .addTemporalMarker(0.6,()->{robot.PivotBrat.setPosition(0.22);})
                 .addTemporalMarker(0.7,()->{robot.PivotBrat.setPosition(0.24);})
                 .addTemporalMarker(0.8,()->{robot.PivotBrat.setPosition(0.26);})
@@ -243,7 +242,7 @@ public class CuburiAlbastru extends LinearOpMode {
                 .addTemporalMarker(1.9,()->{robot.PivotBrat.setPosition(0.50);})
                 .waitSeconds(0.7)
                 .strafeLeft(8)
-                .splineToConstantHeading(new Vector2d(49.79158659407203, 62.58922924676717),0 , SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .splineToConstantHeading(new Vector2d(45.39158659407203, 62.58922924676717),0 , SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(62))
 //                .lineToConstantHeading(new Vector2d(46,-57))
                 .build();
@@ -304,9 +303,9 @@ public class CuburiAlbastru extends LinearOpMode {
         TrajectorySequence PuneCub2 = robot.trajectorySequenceBuilder(currentPose)
                 .back(2)
                 .addTemporalMarker(0, () -> { robot.intake.setPower(0.99);})
-                .lineTo(new Vector2d(28.004453496583984,67.06759694447507),SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
+                .lineTo(new Vector2d(28.004453496583984,65.06759694447507),SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(25))
-                .splineToConstantHeading(new Vector2d(-1.100778017390152, 50.89213093601243),0,SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
+                .splineToConstantHeading(new Vector2d(-1.100778017390152, 49.89213093601243),0,SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(40))
                 .addTemporalMarker(0,   ()->{ robot.RidicareBrat(740,1);})
                 .addTemporalMarker(0.6, ()->{ robot.PivotBrat.setPosition(0.48); })
@@ -322,6 +321,7 @@ public class CuburiAlbastru extends LinearOpMode {
                 .addTemporalMarker(1.6, ()->{ robot.PivotBrat.setPosition(0.26); })
                 .addTemporalMarker(1.7, ()->{ robot.PivotBrat.setPosition(0.24); })
                 .addTemporalMarker(1.8, ()->{ robot.PivotBrat.setPosition(0.23); })
+                .addTemporalMarker(1.9,()->{robot.PivotBrat.setPosition(0.21);})
                 .build();
 
         robot.followTrajectorySequence(PuneCub2);
@@ -375,7 +375,7 @@ public class CuburiAlbastru extends LinearOpMode {
         TrajectorySequence punePreload = robot.trajectorySequenceBuilder(currentPose)
                 .addTemporalMarker(0, ()->{robot.RidicareBrat(430,1);})
                 .waitSeconds(0.65)
-                .lineToConstantHeading(new Vector2d(-0.6619354985385653,46.34777575882209),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .lineToConstantHeading(new Vector2d(-1.6619354985385653,46.34777575882209),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(49))
                 .addTemporalMarker(0.5, ()->{ robot.PivotBrat.setPosition(0.47); })
                 .addTemporalMarker(0.6, ()->{ robot.PivotBrat.setPosition(0.43); })
@@ -413,10 +413,10 @@ public class CuburiAlbastru extends LinearOpMode {
                 .addTemporalMarker(1.3,()->{robot.PivotBrat.setPosition(0.44);})
                 .addTemporalMarker(1.4,()->{robot.PivotBrat.setPosition(0.46);})
                 .addTemporalMarker(1.5,()->{robot.PivotBrat.setPosition(0.48);})
-                .addTemporalMarker(1.6,()->{robot.PivotBrat.setPosition(0.50);robot.RidicareBrat(-5,0.7);})
+                .addTemporalMarker(1.6,()->{robot.PivotBrat.setPosition(0.50);robot.RidicareBrat(0,0.7);})
                 .waitSeconds(0.7)
                 .strafeLeft(8)
-                .splineToConstantHeading(new Vector2d(37.79158659407203, 62.58922924676717),0 , SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .splineToConstantHeading(new Vector2d(37.09158659407203, 62.58922924676717),0 , SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(62))
                 .build();
 
@@ -524,7 +524,7 @@ public class CuburiAlbastru extends LinearOpMode {
                 .addTemporalMarker(1.9,()->{robot.PivotBrat.setPosition(0.50);})
                 .waitSeconds(0.7)
                 .strafeLeft(8)
-                .splineToConstantHeading(new Vector2d(49.79158659407203, 62.58922924676717),0 , SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .splineToConstantHeading(new Vector2d(45.79158659407203, 62.58922924676717),0 , SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(62))
 //                .lineToConstantHeading(new Vector2d(46,-57))
                 .build();
@@ -585,9 +585,9 @@ public class CuburiAlbastru extends LinearOpMode {
         TrajectorySequence PuneCub2 = robot.trajectorySequenceBuilder(currentPose)
                 .back(2)
                 .addTemporalMarker(0, () -> { robot.intake.setPower(0.99);})
-                .lineTo(new Vector2d(28.004453496583984,67.06759694447507),SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
+                .lineTo(new Vector2d(28.004453496583984,65.06759694447507),SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(25))
-                .splineToConstantHeading(new Vector2d(-1.100778017390152, 50.89213093601243),0,SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
+                .splineToConstantHeading(new Vector2d(-1.100778017390152, 49.89213093601243),0,SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(40))
                 .addTemporalMarker(0,   ()->{ robot.RidicareBrat(740,1);})
                 .addTemporalMarker(0.6, ()->{ robot.PivotBrat.setPosition(0.48); })
@@ -654,7 +654,7 @@ public class CuburiAlbastru extends LinearOpMode {
         TrajectorySequence punePreload = robot.trajectorySequenceBuilder(currentPose)
                 .addTemporalMarker(0, ()->{robot.RidicareBrat(730,1);})
                 .waitSeconds(0.65)
-                .lineToConstantHeading(new Vector2d(-0.6619354985385653,46.34777575882209),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .lineToConstantHeading(new Vector2d(-1.6619354985385653,46.34777575882209),SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(20))
                 .addTemporalMarker(0.8, ()->{ robot.PivotBrat.setPosition(0.47); })
                 .addTemporalMarker(0.9, ()->{ robot.PivotBrat.setPosition(0.44); })
@@ -799,7 +799,7 @@ public class CuburiAlbastru extends LinearOpMode {
                 .addTemporalMarker(1.9,()->{robot.PivotBrat.setPosition(0.50);})
                 .waitSeconds(0.7)
                 .strafeLeft(8)
-                .splineToConstantHeading(new Vector2d(49.79158659407203, 62.58922924676717),0 , SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
+                .splineToConstantHeading(new Vector2d(45.79158659407203, 62.58922924676717),0 , SampleMecanumDrive.getVelocityConstraint(62.01654253906262, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(62))
 //                .lineToConstantHeading(new Vector2d(46,-57))
                 .build();
@@ -860,9 +860,9 @@ public class CuburiAlbastru extends LinearOpMode {
         TrajectorySequence PuneCub2 = robot.trajectorySequenceBuilder(currentPose)
                 .back(2)
                 .addTemporalMarker(0, () -> { robot.intake.setPower(0.99);})
-                .lineTo(new Vector2d(28.004453496583984,67.06759694447507),SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
+                .lineTo(new Vector2d(28.004453496583984,65.06759694447507),SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(25))
-                .splineToConstantHeading(new Vector2d(-1.100778017390152, 50.89213093601243),0,SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
+                .splineToConstantHeading(new Vector2d(-1.100778017390152, 48.89213093601243),0,SampleMecanumDrive.getVelocityConstraint(40, 5.788888931274414,10),
                         SampleMecanumDrive.getAccelerationConstraint(40))
                 .addTemporalMarker(0,   ()->{ robot.RidicareBrat(740,1);})
                 .addTemporalMarker(0.6, ()->{ robot.PivotBrat.setPosition(0.48); })

@@ -225,8 +225,8 @@ public class Malboro extends LinearOpMode {
             double putere_brat = 1;
             bS = putere_brat * gamepad2.right_trigger;
             bJ = putere_brat * gamepad2.left_trigger;
-            bS2 = 0.3 * gamepad1.right_trigger;
-            bJ2 = 0.3 * gamepad1.left_trigger;
+            bS2 = 0.3 * gamepad1.left_trigger;
+            bJ2 = 0.3 * gamepad1.right_trigger;
 
             if (bS > 0)
                 robot.ridicareBrat.setPower(bS);
@@ -380,7 +380,7 @@ public class Malboro extends LinearOpMode {
 
             //rotatie brat
             if (gamepad2.dpad_left) {
-                if (robot.PivotBrat.getPosition() <= 0.76)
+                if (robot.PivotBrat.getPosition() <= 0.79)
                     robot.PivotBrat.setPosition(robot.PivotBrat.getPosition() + 0.03);
             }
             if (gamepad2.dpad_right) {

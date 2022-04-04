@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.drive.autonomii_camera_albastru;
 
+import com.acmerobotics.dashboard.config.Config;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -8,7 +11,6 @@ import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
-
 
 public class DetectarePozitieAlbastru extends OpenCvPipeline {
 
@@ -24,13 +26,14 @@ public class DetectarePozitieAlbastru extends OpenCvPipeline {
     private volatile Location location = Location.UNU;
 
     static final Rect LEFT_ROI = new Rect(
-            new Point(70, 187),
-            new Point(90, 207));
+            new Point(70, 157),
+            new Point(90, 179));
     static final Rect RIGHT_ROI = new Rect(
-            new Point(165, 187),
-            new Point(185, 207));
+            new Point(165, 157),
+            new Point(185, 179));
     static double PERCENT_COLOR_THRESHOLD = 0.4;
 
+    //187 207
 
 
     public DetectarePozitieAlbastru(Telemetry t)

@@ -1,13 +1,6 @@
-package org.firstinspires.ftc.teamcode.drive.autonomii_camera;
-
-import com.acmerobotics.dashboard.FtcDashboard;
-
-import com.acmerobotics.dashboard.FtcDashboard;
-import com.qualcomm.robotcore.hardware.HardwareMap;
+package org.firstinspires.ftc.teamcode.drive.autonomii_camera_rosu;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.teamcode.drive.properties.SampleMecanumDrive;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -15,8 +8,6 @@ import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
-
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
 
 public class DetectarePozitie extends OpenCvPipeline {
@@ -33,11 +24,11 @@ public class DetectarePozitie extends OpenCvPipeline {
     private volatile Location location = Location.TREI;
 
     static final Rect LEFT_ROI = new Rect(
-            new Point(70, 187),
-            new Point(90, 207));
+            new Point(70, 157),
+            new Point(90, 179));
     static final Rect RIGHT_ROI = new Rect(
-            new Point(165, 187),
-            new Point(185, 207));
+            new Point(165, 157),
+            new Point(185, 179));
     static double PERCENT_COLOR_THRESHOLD = 0.4;
 
 

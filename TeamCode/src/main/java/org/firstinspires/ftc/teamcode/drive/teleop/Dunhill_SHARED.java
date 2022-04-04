@@ -224,8 +224,8 @@ public class Dunhill_SHARED extends LinearOpMode {
       double putere_brat = 1;
       bS = putere_brat * gamepad2.right_trigger;
       bJ = putere_brat * gamepad2.left_trigger;
-      bS2 = 0.3 * gamepad1.right_trigger;
-      bJ2 = 0.3 * gamepad1.left_trigger;
+      bS2 = 0.3 * gamepad1.left_trigger;
+      bJ2 = 0.3 * gamepad1.right_trigger;
 
       if (bS > 0)
         robot.ridicareBrat.setPower(bS);
